@@ -6,17 +6,17 @@ const app: Express = express();
 
 dotenv.config();
 
-const PORT: string = String(process.env.PORT!);
+const PORT: string = process.env.PORT || '3000';
 
 // app.use(cors());
 app.use(express.json());
 
 
 app.get('/', (req: Request, res: Response) => {
-  res.send('Hello World!');
+  res.send('Hello Arto!');
 });
 
 
-app.listen(PORT, () => {
-  console.log(`Server is running on port ${PORT}`);
+app.listen(Number(PORT), '0.0.0.0', () => {
+  console.log(`Server listening on port ${PORT}`);
 });
