@@ -10,6 +10,7 @@ app.use(express.json());
 app.use(router);
 app.use(ErrorHandler);
 
+// test
 app.get('/', (req: Request, res: Response) => {
   res.send('Hello World!');
 });
