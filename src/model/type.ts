@@ -7,8 +7,9 @@ type Character = {
   notlike: string,
   height: string,
   weight: string,
-  moves: Move[];
+  // moves: Move[]
 };
+
 type Move = {
   name: string,
   type: string; // special/superArt/unique/common/throw/normal
@@ -86,3 +87,5 @@ heavy: H
 
 keep the button pressed: PRESS
 */
+
+export { Character, Move, FrameData };
