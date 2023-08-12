@@ -19,27 +19,27 @@ const db = {
     });
   },
 
-  createCharacter: async (character: createNewCharacter): Promise<Character> => {
-    return prisma.character.create({
-      data: character,
-    });
-  },
+  // createCharacter: async (character: createNewCharacter): Promise<Character> => {
+  //   return prisma.character.create({
+  //     data: character,
+  //   });
+  // },
 
-  deleteCharacter: async (_id: string): Promise<void> => {
-    await prisma.character.delete({
-      where: { id: _id },
-    });
-  },
+  // deleteCharacter: async (_id: string): Promise<void> => {
+  //   await prisma.character.delete({
+  //     where: { id: _id },
+  //   });
+  // },
 
-  updateCharacter: async (
-    _id: string,
-    updatedData: updateCharacterData
-  ): Promise<Character> => {
-    return prisma.character.update({
-      where: { id: _id },
-      data: updatedData,
-    });
-  }
+  // updateCharacter: async (
+  //   _id: string,
+  //   updatedData: updateCharacterData
+  // ): Promise<Character> => {
+  //   return prisma.character.update({
+  //     where: { id: _id },
+  //     data: updatedData,
+  //   });
+  // }
 
 }
 
