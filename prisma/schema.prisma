@@ -1,0 +1,56 @@
+datasource db {
+  provider = "mongodb"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider        = "prisma-client-js"
+}
+
+model Character {
+  id      String @id @default(auto()) @map("_id") @db.ObjectId
+  name    String @unique
+  bio     String
+  like    String
+  notlike String
+  height  String
+  weight  String
+  // moves   Move[]
+}
+
+model Move {
+  id          String     @id @default(auto()) @map("_id") @db.ObjectId
+  name        String     @unique
+  type        String // special/superArt/unique/common/throw/normal
+  // combination
+  // classic      String @map("combination.classic")
+  // modern       String? @map("combination.modern")
+  // manual       String? @map("combination.manual") // only for special and super arts
+  // note         String? @map("combination.note") // in some of the movements are notes like (During a Drive Parry)
+  driveGauge  Int?
+  video       String?
+  definition  String?
+  frameData   FrameData? @relation(fields: [frameDataId], references: [id])
+  // Character   Character? @relation(fields: [characterId], references: [id])
+  characterId String?    @db.ObjectId
+  frameDataId String?    @db.ObjectId
+}
+
+model FrameData {
+  id                    String  @id @default(auto()) @map("_id") @db.ObjectId
+  startup               Int
+  active                String
+  missRecovery          Int
+  hitStunRecovery       Int
+  blockStunRecovery     Int
+  cancelable            String? // C/SA/SA2/SA3/*
+  damage                Int
+  scaling               Int?
+  driveIncreaseHit      Int
+  driveDecreaseBlock    Int
+  driveDecreasePunish   Int
+  superArtGaugeIncrease Int
+  properties            String // H/M/L/T/P,
+  miscellaneous         String?
+  Move                  Move[]
+}

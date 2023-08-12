@@ -1,6 +1,7 @@
 import request from 'supertest';
 import { app } from '../app';
 
+
 describe('Test the root path', () => {
   test('It should respond to the GET method', done => {
     request(app)
