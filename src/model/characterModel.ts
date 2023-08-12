@@ -1,7 +1,7 @@
 import { prisma } from '../prisma/client';
 import { Character, Move, FrameData } from './type';
 
-const db = {
+const dbCharacter = {
 
   getAllCharacters: async (): Promise<Character[]> => {
     return prisma.character.findMany();
@@ -43,4 +43,4 @@ const db = {
 
 }
 
-export { db };
+export { dbCharacter };

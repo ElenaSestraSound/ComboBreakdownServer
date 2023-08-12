@@ -21,7 +21,7 @@ model Character {
   notlike String
   height  String
   weight  String
-  moves   Move[]
+  // moves   Move[]
 }
 
 model Move {

@@ -1,7 +1,7 @@
 import { prisma } from '../prisma/client';
 import { FrameData } from './type';
 
-const db = {
+const dbFrameData = {
 
   // getAllFrameData: async (): Promise<FrameData[]> => {
   //   return prisma.frameData.findMany();
@@ -37,4 +37,4 @@ const db = {
 
 }
 
-export { db };
+export { dbFrameData };
