@@ -26,21 +26,23 @@ type Move = {
 };
 
 type FrameData = {
-  startup: number,
-  active: string,
-  missRecovery: number,
-  hitStunRecovery: number,
-  blockStunRecovery: number,
-  cancelable?: string; // C/SA/SA2/SA3/*
-  damage: number,
-  scaling?: number,
-  driveIncreaseHit: number,
-  driveDecreaseBlock: number,
-  driveDecreasePunish: number,
-  superArtGaugeIncrease: number,
-  properties: string; // H/M/L/T/P,
-  miscellaneus?: string;
+  startup: number;
+  active: string;
+  missRecovery: number;
+  hitStunRecovery: number;
+  blockStunRecovery: number;
+  cancelable: string | null; // // C/SA/SA2/SA3/*
+  damage: number;
+  scaling: number | null;
+  driveIncreaseHit: number;
+  driveDecreaseBlock: number;
+  driveDecreasePunish: number;
+  superArtGaugeIncrease: number;
+  properties: string; // // H/M/L/T/P
+  miscellaneous: string | null;
+  // Move: Move[];
 };
+
 
 /*
 Classic
