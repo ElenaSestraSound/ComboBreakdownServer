@@ -7,6 +7,11 @@ const dbCharacter = {
     return prisma.character.findMany();
   },
 
+  createCharacterCollection: async (characters: createNewCharacter[]): Promise<Character[]> => {
+    const createCharacterPromises = characters.map(character => prisma.character.create({ data: character }));
+    return prisma.$transaction(createCharacterPromises);
+  },
+
   getCharacterByName: async (name: string): Promise<Character | null> => {
     return prisma.character.findUnique({
       where: { name },
@@ -19,27 +24,15 @@ const dbCharacter = {
     });
   },
 
-  // createCharacter: async (character: createNewCharacter): Promise<Character> => {
-  //   return prisma.character.create({
-  //     data: character,
-  //   });
-  // },
-
-  // deleteCharacter: async (_id: string): Promise<void> => {
-  //   await prisma.character.delete({
-  //     where: { id: _id },
-  //   });
-  // },
-
-  // updateCharacter: async (
-  //   _id: string,
-  //   updatedData: updateCharacterData
-  // ): Promise<Character> => {
-  //   return prisma.character.update({
-  //     where: { id: _id },
-  //     data: updatedData,
-  //   });
-  // }
+  updateOneCharacter: async (
+    _id: string,
+    updatedData: updateCharacterData
+  ): Promise<Character> => {
+    return prisma.character.update({
+      where: { id: _id },
+      data: updatedData,
+    });
+  }
 
 }
 

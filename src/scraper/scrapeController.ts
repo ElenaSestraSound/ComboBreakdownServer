@@ -4,7 +4,7 @@ import { Request, Response, NextFunction } from 'express';
 /* *** GET *** */
 /* execute the scraping manually and populate the database for the first time or empty the database and populate it again */
 
-const scrapeManually = async (req: Request, res: Response, next: NextFunction) => {
+const scrape = async (req: Request, res: Response, next: NextFunction) => {
   try {
 
       // scrapeFunction
@@ -19,7 +19,7 @@ const scrapeManually = async (req: Request, res: Response, next: NextFunction) =
 /* *** POST *** */
 /* execute the scraping manually and update the database for a certain URL (character). */
 
-const scrapeSpecificCharacter = async (req: Request, res: Response, next: NextFunction) => {
+const scrapeOneCharacter = async (req: Request, res: Response, next: NextFunction) => {
   try {
 
     // scrapeFunction
@@ -31,4 +31,4 @@ const scrapeSpecificCharacter = async (req: Request, res: Response, next: NextFu
 };
 
 
-export { scrapeManually, scrapeSpecificCharacter };
+export { scrape, scrapeOneCharacter };
