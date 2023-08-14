@@ -1,13 +1,13 @@
 import { prisma } from '../prisma/client';
 import { Character } from './type';
 
-const dbCharacter = {
+const db = {
 
   getAllCharacters: async (): Promise<Character[]> => {
     return prisma.character.findMany();
   },
 
-  createCharacterCollection: async (characters: createNewCharacter[]): Promise<Character[]> => {
+  createCharacterCollection: async (characters: Character[]): Promise<Character[]> => {
     const createCharacterPromises = characters.map(character => prisma.character.create({ data: character }));
     return prisma.$transaction(createCharacterPromises);
   },
@@ -26,7 +26,7 @@ const dbCharacter = {
 
   updateOneCharacter: async (
     _id: string,
-    updatedData: updateCharacterData
+    updatedData: Partial<Character>
   ): Promise<Character> => {
     return prisma.character.update({
       where: { id: _id },
@@ -36,4 +36,4 @@ const dbCharacter = {
 
 }
 
-export { dbCharacter };
+export { db };

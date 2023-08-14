@@ -10,7 +10,7 @@ interface Character {
 
 interface Move {
   character: Character;
-  characterId: ObjectId;
+  // characterId: ObjectId;
   name: string;
   type: string;
   driveGauge?: number;
