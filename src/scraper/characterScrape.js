@@ -1,5 +1,4 @@
-
-const characterStats = function () {
+function scrapeCharacterStats() {
   const result = {
     name: window.location.pathname.split('/').filter(Boolean).pop(),
     bio: document.querySelector('.detail_detail__profile__text__8JGgO').textContent,
@@ -12,4 +11,5 @@ const characterStats = function () {
   };
   return result;
 }
-console.log(characterStats());
+
+export { scrapeCharacterStats };
