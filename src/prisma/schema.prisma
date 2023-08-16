@@ -45,5 +45,5 @@ model Move {
   superArtGaugeIncrease Int?
   properties            String?
   scaling               String?
-  miscellaneus          String?
+  miscellaneous          String?
 }

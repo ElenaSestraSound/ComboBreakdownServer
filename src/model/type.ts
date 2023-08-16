@@ -11,6 +11,7 @@ interface Character {
 interface Move {
   name: string;
   type: string;
+  note?: string;
   driveGauge?: number;
   video?: string;
   definition?: string;
@@ -30,6 +31,7 @@ interface Move {
   superArtGaugeIncrease?: number;
   properties?: string;
   scaling?: string;
+  miscellaneous?: string;
 }
 
 export { Character, Move };
