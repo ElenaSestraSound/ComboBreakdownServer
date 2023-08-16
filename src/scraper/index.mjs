@@ -60,7 +60,7 @@ async function processFrameDataPage(url) {
 
 /* scrape function */
 
-(async () => {
+const getScrapeData = async () => {
 
   const characterMap = new Map();
   const browser = await puppeteer.launch();
@@ -89,10 +89,10 @@ async function processFrameDataPage(url) {
 
   await browser.close();
 
-  const charactersArray = [...characterMap.values()];
-
-  // console.log(charactersArray);
+  const characterArray = [...characterMap.values()];
 
   return characterArray;
 
-})();
+};
+
+export { getScrapeData };
