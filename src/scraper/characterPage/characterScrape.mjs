@@ -1,4 +1,5 @@
 /* on the top character page, eg. https://www.streetfighter.com/6/character/zangief */
+
 function scrapeCharacterStats() {
   const result = {
     name: window.location.pathname.split('/').filter(Boolean).pop(),
@@ -14,6 +15,7 @@ function scrapeCharacterStats() {
 }
 
 /* on the frame data page, eg. https://www.streetfighter.com/6/character/zangief/frame */
+
 function getVitality () {
   const result = document.querySelector('.frame_attention__6H6pd > span').textContent;
   return result;

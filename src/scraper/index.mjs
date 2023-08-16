@@ -1,5 +1,5 @@
 import puppeteer from 'puppeteer';
-import { scrapeCharacterStats } from './characterPage/characterScrape.mjs';
+import { scrapeCharacterStats, getVitality } from './characterPage/characterScrape.mjs';
 import { extractDataFromTable } from './frameDataPage/tableScrape.mjs'
 
 const baseUrl = 'https://www.streetfighter.com/6/character/';
@@ -24,21 +24,6 @@ console.log(charactersUrlObject);
 
 // Also keep in mind that the modern controls are behind a button click
 
-// async function processPage(url) {
-  
-//   console.log(`Processing ${url}`);
-
-//   const browser = await puppeteer.launch({ headless: 'new', args: ['--no-sandbox'] });
-//   const page = await browser.newPage();
-//   await page.setUserAgent('Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/88.0.4324.190 Safari/537.36');
-//   await page.goto(url);
-//   const data = await page.evaluate(() => {
-//     const result = scrapeCharacterStats();
-//     return result;
-//   }
-//   console.log(data);
-// }
-
 async function processCharacterPage(url) {
   
   console.log(`Processing ${url}`);
@@ -48,7 +33,7 @@ async function processCharacterPage(url) {
   await page.setUserAgent('Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/88.0.4324.190 Safari/537.36');
   await page.goto(url);
 
-  const data = await page.evaluate(`(${scrapeCharacterStats.toString()})()`);
+  const data = await page.evaluate(`(${scrapeCharacterStats.toString()})();`);
 
   await browser.close();
   return data;
@@ -64,9 +49,13 @@ async function processFrameDataPage(url) {
   await page.goto(url);
 
   const data = await page.evaluate(`(${extractDataFromTable.toString()})()`);
+  const vitality = await page.evaluate(`(${getVitality.toString()})()`);
 
   await browser.close();
-  return data;
+  return {
+    data,
+    vitality
+  };
 }
 
 /* scrape function */
@@ -88,9 +77,11 @@ async function processFrameDataPage(url) {
   for (const character in charactersUrlObject) {
     const page = await browser.newPage();
     await page.goto(charactersUrlObject[character] + '/frame');
-    const data = await processFrameDataPage(charactersUrlObject[character] + '/frame'); 
+    const result = await processFrameDataPage(charactersUrlObject[character] + '/frame'); 
     if(characterMap.has(character)) {
-      characterMap.get(character).moves = data;
+      const characterObject = characterMap.get(character);
+      characterObject.moves = result.data;
+      characterObject.vitality = result.vitality;
     }
     await page.close();
     break;

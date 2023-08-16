@@ -1,5 +1,3 @@
-// import { handleImage, replaceWithAbbreviation } from './helperFunctions.mjs';
-
 function extractDataFromTable() {
 
   const filenameAbbreviations = {
