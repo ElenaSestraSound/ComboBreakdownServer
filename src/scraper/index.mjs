@@ -89,8 +89,10 @@ async function processFrameDataPage(url) {
 
   await browser.close();
 
-  const characters = Object.fromEntries(characterMap);
   const charactersArray = [...characterMap.values()];
-  console.log(charactersArray);
+
+  // console.log(charactersArray);
+
+  return characterArray;
 
 })();
