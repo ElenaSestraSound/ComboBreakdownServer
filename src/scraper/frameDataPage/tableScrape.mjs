@@ -31,6 +31,8 @@ function extractDataFromTable() {
     'modern_m.png': 'M',
     'modern_sp.png': 'SP',
   };
+
+  const moveTypes = ['Normal Moves', 'Unique Attacks', 'Special Moves', 'Super Arts', 'Throws', 'Common Moves'];
   
   const rows = document.querySelectorAll('#framearea > div > table > tbody > tr');
   
@@ -111,8 +113,8 @@ function extractDataFromTable() {
       driveGauge: '',
       video: '',
       definition: '',
-      manual: [],
-      modern: []
+      manual: '',
+      modern: ''
     }
   
     const typeFunction = (styleIndex) => {
@@ -137,18 +139,18 @@ function extractDataFromTable() {
       const element = row.children[map.index];
       const text = getText(element);
       if (map.index === 14) {
-        result[map.property] = text.join(' ');
+        result[map.property] = text.join('');
       } else if (map.index === 8) {
-        result[map.property] = text;
+        result[map.property] = text.join(',');
       } else if (map.index === 2) {
         const firstNonEmptyIndex = text.findIndex(item => item.trim() !== '');
-        result[map.property] = firstNonEmptyIndex !== -1 ? text.slice(firstNonEmptyIndex + 1) : [];
+        result[map.property] = firstNonEmptyIndex !== -1 ? text.slice(firstNonEmptyIndex + 1).join(' ') : '';
       } else {
         result[map.property] = text[0] || '';
       }
     });
   
-    if (result.damage && result.damage.trim() !== '') {
+    if (result.name && !moveTypes.includes(result.name.trim())) {
       results.push(result);
     } else {
       styleIndex++;
@@ -160,4 +162,6 @@ function extractDataFromTable() {
 
 }
 
-export { extractDataFromTable };
+extractDataFromTable();
+
+// export { extractDataFromTable };
