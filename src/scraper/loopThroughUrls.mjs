@@ -1,3 +1,5 @@
+import puppeteer from 'puppeteer';
+
 const baseUrl = 'https://www.streetfighter.com/6/character/';
 const characters = [
   'rashid', 'cammy', 'lily', 'zangief', 'jp', 'marisa', 'manon', 'deejay', 'honda',
@@ -19,9 +21,6 @@ const paths = ['/movelist', '/frame'];
 // frame data: https://www.streetfighter.com/6/character/luke/frame
 
 // Also keep in mind that the modern controls are behind a button click
-
-const puppeteer = require('puppeteer');
-
 
 async function processPage(url) {
   // Here, write the function you want to execute on each page
