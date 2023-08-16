@@ -1,20 +1,21 @@
 import puppeteer from 'puppeteer';
 import { scrapeCharacterStats } from './characterPage/characterScrape.mjs';
+import { extractDataFromTable } from './frameDataPage/tableScrape.mjs'
 
 const baseUrl = 'https://www.streetfighter.com/6/character/';
-const characters = [
+const characterUrlNames = [
   'rashid', 'cammy', 'lily', 'zangief', 'jp', 'marisa', 'manon', 'deejay', 'ehonda',
   'dhalsim', 'blanka', 'ken', 'juri', 'kimberly', 'guile', 'chunli', 'jamie', 'luke', 'ryu'
 ];
 
-const charactersUrlObject = characters.reduce((obj, character) => {
+const charactersUrlObject = characterUrlNames.reduce((obj, character) => {
   obj[character] = baseUrl + character;
   return obj;
 }, {});
 
-console.log(charactersUrlObject);
+// const paths = ['/movelist', '/frame'];
 
-const paths = ['/movelist', '/frame'];
+console.log(charactersUrlObject);
 
 // To get all the info fro a characters we need to do 3 calls
 // basic data: https://www.streetfighter.com/6/character/luke
@@ -38,7 +39,7 @@ const paths = ['/movelist', '/frame'];
 //   console.log(data);
 // }
 
-async function processPage(url) {
+async function processCharacterPage(url) {
   
   console.log(`Processing ${url}`);
 
@@ -47,26 +48,59 @@ async function processPage(url) {
   await page.setUserAgent('Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/88.0.4324.190 Safari/537.36');
   await page.goto(url);
 
-  const data = await page.evaluate(() => {
-
-    return {};
-  });
-
-  console.log(data);
+  const data = await page.evaluate(`(${scrapeCharacterStats.toString()})()`);
 
   await browser.close();
+  return data;
 }
 
+async function processFrameDataPage(url) {
+  
+  console.log(`Processing ${url}`);
+
+  const browser = await puppeteer.launch({ headless: false, args: ['--no-sandbox'] });
+  const page = await browser.newPage();
+  await page.setUserAgent('Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/88.0.4324.190 Safari/537.36');
+  await page.goto(url);
+
+  const data = await page.evaluate(`(${extractDataFromTable.toString()})()`);
+
+  await browser.close();
+  return data;
+}
+
+/* scrape function */
 
 (async () => {
+
+  const characterMap = new Map();
   const browser = await puppeteer.launch();
 
   for (const character in charactersUrlObject) {
     const page = await browser.newPage();
     await page.goto(charactersUrlObject[character]);
-    await processPage(charactersUrlObject[character]);
+    const data = await processCharacterPage(charactersUrlObject[character]);
+    characterMap.set(data.name, data);
     await page.close();
+    break;
+  }
+  
+  for (const character in charactersUrlObject) {
+    const page = await browser.newPage();
+    await page.goto(charactersUrlObject[character] + '/frame');
+    const data = await processFrameDataPage(charactersUrlObject[character] + '/frame'); 
+    if(characterMap.has(character)) {
+      characterMap.get(character).moves = data;
+    }
+    await page.close();
+    break;
   }
 
   await browser.close();
+
+  const characters = Object.fromEntries(characterMap);
+
+  console.log(characters);
+  console.log(characters.rashid.moves[23]);
+
 })();

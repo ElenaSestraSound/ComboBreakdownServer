@@ -1,4 +1,4 @@
-import { filenameAbbreviations } from '../utils/filenameAbbreviations';
+import { filenameAbbreviations } from '../utils/filenameAbbreviations.mjs';
 
 const extractFileName = (url) => {
   const regexSelectImgFileName = /([^\/]+)$/;
