@@ -1,5 +1,4 @@
 interface Character {
-  id: string;
   name: string;
   bio: string;
   like: string;
@@ -7,13 +6,9 @@ interface Character {
   height: string;
   weight: string;
   vitality: number;
-  moves: Move[];
 }
 
 interface Move {
-  id: string;
-  characterId: string;
-  character?: Character;
   name: string;
   type: string;
   driveGauge?: number;

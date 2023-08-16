@@ -74,36 +74,36 @@
 //   /////////////////////////////////////////
 
 
-import { prisma } from './client';
-import { getScrapeData } from '../scraper/index';
+// import { prisma } from './client';
+// // import { getScrapeData } from '../scraper/index';
 
-const scrapeData = getScrapeData();
+// const scrapeData = getScrapeData();
 
-async function run(scrapeData: any) {
-  for (const characterObject of scrapeData) {
-    const { moves, ...characterData } = characterObject;
+// async function run(scrapeData: any) {
+//   for (const characterObject of scrapeData) {
+//     const { moves, ...characterData } = characterObject;
 
-    const newChar = await prisma.character.create({
-      data: {
-        ...characterData,
-        moves: {
-          createMany: {
-            data: moves,
-          },
-        },
-      },
-    });
+//     const newChar = await prisma.character.create({
+//       data: {
+//         ...characterData,
+//         moves: {
+//           createMany: {
+//             data: moves,
+//           },
+//         },
+//       },
+//     });
 
-    console.log('Created character:', newChar);
-  }
-  console.log('Database seeding complete.');
-}
+//     console.log('Created character:', newChar);
+//   }
+//   console.log('Database seeding complete.');
+// }
 
-run(scrapeData)
-  .catch(error => {
-    console.error('Error seeding the database:', error);
-    process.exit(1);
-  })
-  .finally(async () => {
-    await prisma.$disconnect();
-  });
+// run(scrapeData)
+//   .catch(error => {
+//     console.error('Error seeding the database:', error);
+//     process.exit(1);
+//   })
+//   .finally(async () => {
+//     await prisma.$disconnect();
+//   });
