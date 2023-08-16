@@ -23,7 +23,7 @@ async function run() {
               "classic": "236+LP",
               "modern": "5+SP",
               "manual": "236+L",
-              "startup": 14,
+              "startup": [],
               "active": "14-18",
               "missRecovery": 47,
               "hitStunRecovery": -3,
