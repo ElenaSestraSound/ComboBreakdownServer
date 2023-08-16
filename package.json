@@ -8,6 +8,9 @@
     "build": "tsc -p tsconfig.json",
     "test": "NODE_ENV=test jest --detectOpenHandles"
   },
+  "prisma": {
+    "seed": "ts-node prisma/seed.ts"
+  },
   "keywords": [],
   "author": "",
   "license": "ISC",

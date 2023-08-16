@@ -1,6 +1,4 @@
-import { PrismaClient } from "@prisma/client";
-
-const prisma = new PrismaClient();
+import { prisma } from './client';
 
 async function run() {
   const newChar = await prisma.character.create({
@@ -11,6 +9,7 @@ async function run() {
       "notlike": "Horror games",
       "height": "6'1",
       "weight": "198 lbs",
+      "vitality": 10000,
       "moves": {
         createMany: {
           data: [
@@ -23,7 +22,7 @@ async function run() {
               "classic": "236+LP",
               "modern": "5+SP",
               "manual": "236+L",
-              "startup": [],
+              "startup": 12,
               "active": "14-18",
               "missRecovery": 47,
               "hitStunRecovery": -3,
@@ -49,7 +48,7 @@ async function run() {
               "blockStunRecovery": -6,
               "cancelable": "C",
               "damage": 500,
-              "scaling": 20,
+              "scaling": "fun",
               "driveIncreaseHit": 1000,
               "driveDecreaseBlock": -2000,
               "driveDecreasePunish": -4000,
