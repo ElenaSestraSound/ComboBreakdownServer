@@ -1,3 +1,25 @@
+// import express, { Express, Request, Response } from 'express';
+// import cors from 'cors';
+// import { ErrorHandler } from './middleware/errorHandler';
+// import { router } from './scraper/routes';
+// import { prisma } from './prisma/client'
+
+// const app: Express = express();
+
+// app.use(cors());
+// app.use(express.json());
+// app.use(router);
+
+// // test
+// app.get('/', (req: Request, res: Response) => {
+//   res.send('Hello World!');
+//   console.log('Server running!');
+// });
+
+// app.use(ErrorHandler);
+
+// export { app };
+
 import express, { Express, Request, Response } from 'express';
 import cors from 'cors';
 import { ErrorHandler } from './middleware/errorHandler';
@@ -10,25 +32,24 @@ app.use(cors());
 app.use(express.json());
 app.use(router);
 
+
 // test
 app.get('/', (req: Request, res: Response) => {
   res.send('Hello World!');
 });
 
+// test database connection
+app.get('/db-test', async (req: Request, res: Response) => {
+  try {
+    const user = await prisma.character.findFirst(); 
+    console.log('Database connected');
+    res.send('Database connected successfully');
+  } catch (error) {
+    console.error('Error connecting to the database', error);
+    res.status(500).send('Error connecting to the database');
+  }
+});
 
-
-async function main() {
-  console.log('database connected');
-}
-
-// main()
-//   .catch(async (e) => {
-//     console.error(e)
-//     process.exit(1)
-//   })
-//   .finally(async () => {
-//     await prisma.$disconnect()
-//   })
 
 app.use(ErrorHandler);
 
