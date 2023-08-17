@@ -31,9 +31,10 @@ function formatMove(data) {
     properties: data.properties || null,
     miscellaneous: data.miscellaneous || null
   };
-  return Object.fromEntries(
+  const cleanedMove = Object.fromEntries(
     Object.entries(formattedMove).filter(([_, value]) => value !== null)
   );
+  return cleanedMove;
 };
 
 export { formatMove };

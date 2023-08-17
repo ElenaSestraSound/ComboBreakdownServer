@@ -1,11 +1,14 @@
 import { PrismaClient } from '@prisma/client';
-import { rawMoves, character } from './mocks.mjs'
-import { formatMove } from '../scraper/helperFunctions/formatForDataBase.mjs'
+import { rawMoves, character } from './mocks.mjs';
+import { formatMove } from '../scraper/helperFunctions/formatForDataBase.mjs';
+import { getScrapeData } from '../scraper/index.mjs';
 
 const prisma = new PrismaClient();
 
 function mapFormattedMovesData(rawData) {
-  return rawData.map(data => formatMove(data));
+  const data = rawData.map(element => formatMove(element));
+  // console.log(data);
+  return data;
 }
 
 async function checkIfCharacterExists(characterName) {
@@ -20,12 +23,37 @@ async function checkIfCharacterExists(characterName) {
   return false;
 }
 
-// mockData
-const mockData = mapFormattedMovesData(rawMoves);
+
+function stringifyMovesProperty(characterArray) {
+  const data = characterArray.map(character => {
+    const transformedMoves = mapFormattedMovesData(character.moves);
+    return {
+      ...character,
+      moves: transformedMoves
+    };
+  });
+  // console.log(data)
+  return data;
+}
+
+
+
+// function stringifyMovesProperty (characterArray) {
+//   // console.log(characterArray);
+//   const data = characterArray.map(character => {
+//     mapFormattedMovesData(character.moves)
+//   });
+//   // console.log(data);
+//   return data;
+// }
+
+const scrapeData = await getScrapeData();
+const seedData = stringifyMovesProperty(scrapeData);
 
 /* seed the database */
 
-async function run() {
+async function run(character) {
+  console.log(character);
   if (await checkIfCharacterExists(character.name)) {
     console.log(`Character with name ${character.name} already exists!`);
     return;
@@ -41,8 +69,7 @@ async function run() {
       vitality: character.vitality,
       moves: {
         createMany: {
-          data: 
-            mockData
+          data: character.moves
         }
       }
     }
@@ -50,17 +77,16 @@ async function run() {
   console.log('Seeded:', newChar);
 }
 
-// async function seedDatabase(characterArray) {
-//   for (const character of characterArray) {
-//     await run(character);
-//   }
-// }
-
-run()
-  .catch((e) => {
-    console.log(e);
-    process.exit(1);
-  })
-  .finally(async () => {
-    await prisma.$disconnect();
-  });
+async function seedDatabase(characterArray) {
+  for (const character of characterArray) {
+    run(character)
+    .catch((e) => {
+      console.log(e);
+      process.exit(1);
+    })
+    .finally(async () => {
+      await prisma.$disconnect();
+    });;
+  }
+}
+seedDatabase(seedData);

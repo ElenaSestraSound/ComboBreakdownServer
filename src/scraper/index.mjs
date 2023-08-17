@@ -15,15 +15,6 @@ const charactersUrlObject = characterUrlNames.reduce((obj, character) => {
 
 // const paths = ['/movelist', '/frame'];
 
-console.log(charactersUrlObject);
-
-// To get all the info fro a characters we need to do 3 calls
-// basic data: https://www.streetfighter.com/6/character/luke
-// combos: https://www.streetfighter.com/6/character/luke/movelist
-// frame data: https://www.streetfighter.com/6/character/luke/frame
-
-// Also keep in mind that the modern controls are behind a button click
-
 async function processCharacterPage(url) {
   
   console.log(`Processing ${url}`);
@@ -70,8 +61,8 @@ const getScrapeData = async () => {
     await page.goto(charactersUrlObject[character]);
     const data = await processCharacterPage(charactersUrlObject[character]);
     characterMap.set(data.name, data);
+    break;
     await page.close();
-    // break;
   }
   
   for (const character in charactersUrlObject) {
@@ -80,20 +71,19 @@ const getScrapeData = async () => {
     const result = await processFrameDataPage(charactersUrlObject[character] + '/frame'); 
     if(characterMap.has(character)) {
       const characterObject = characterMap.get(character);
-      // characterObject.moves = result.data;
+      characterObject.moves = result.data;
       characterObject.vitality = result.vitality;
     }
+    break;
     await page.close();
-    // break;
   }
 
   await browser.close();
 
   const characterArray = [...characterMap.values()];
 
-  console.log(characterArray);
+  // console.log(characterArray);
   return characterArray;
-
 };
 
 getScrapeData();

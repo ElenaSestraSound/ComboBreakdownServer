@@ -1,4 +1,4 @@
-import { handleImage } from './handleImage.mjs';
+import { handleImage } from './_handleImage.mjs';
 
 const getText = (element) => {
   if (!element) return [];

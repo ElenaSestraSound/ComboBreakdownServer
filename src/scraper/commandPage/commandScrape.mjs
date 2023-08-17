@@ -12,13 +12,13 @@ function getCommandPageData() {
   const handleImage = (element) => {
     if (element.tagName.toLowerCase() === 'img' && element.src) {
       const filename = extractFileName(element.src);
-      return filename ? [filename] : [];
+      return filename ? [filename] : '';
     }
     return [];
   };
 
   const getImages = (element) => {
-    if (!element) return [];
+    if (!element) return '';
     let images = [];
     element.childNodes.forEach(child => {
       if (child.nodeType === 1) {
@@ -31,7 +31,7 @@ function getCommandPageData() {
         }
       }
     });
-    return images;
+    return images.toString();
   };
   
   container.forEach(elem => {
