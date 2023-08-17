@@ -161,5 +161,6 @@ function extractDataFromTable() {
   return results;
 
 }
+extractDataFromTable();
 
 export { extractDataFromTable };

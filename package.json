@@ -10,7 +10,7 @@
     "prisma": "ts-node -r tsconfig-paths/register src/prisma/seed.ts"
   },
   "prisma": {
-    "seed": "ts-node prisma/seed.ts"
+    "seed": "ts-node prisma/seed.mjs"
   },
   "keywords": [],
   "author": "",

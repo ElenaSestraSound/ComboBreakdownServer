@@ -71,7 +71,7 @@ const getScrapeData = async () => {
     const data = await processCharacterPage(charactersUrlObject[character]);
     characterMap.set(data.name, data);
     await page.close();
-    break;
+    // break;
   }
   
   for (const character in charactersUrlObject) {
@@ -80,19 +80,22 @@ const getScrapeData = async () => {
     const result = await processFrameDataPage(charactersUrlObject[character] + '/frame'); 
     if(characterMap.has(character)) {
       const characterObject = characterMap.get(character);
-      characterObject.moves = result.data;
+      // characterObject.moves = result.data;
       characterObject.vitality = result.vitality;
     }
     await page.close();
-    break;
+    // break;
   }
 
   await browser.close();
 
   const characterArray = [...characterMap.values()];
 
+  console.log(characterArray);
   return characterArray;
 
 };
+
+getScrapeData();
 
 export { getScrapeData };
