@@ -3,6 +3,7 @@ import { rawMoves, character } from './mocks.mjs'
 
 const prisma = new PrismaClient();
 
+
 function formatMove(data) {
   if (
     !data.name || typeof data.name !== "string" ||
@@ -57,9 +58,10 @@ async function checkIfCharacterExists(characterName) {
   return false;
 }
 
-
+// mockData
 const mockData = mapFormattedMovesData(rawMoves);
 
+/* seed the database */
 
 async function run() {
   if (await checkIfCharacterExists(character.name)) {

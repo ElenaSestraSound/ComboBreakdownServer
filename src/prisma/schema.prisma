@@ -11,27 +11,26 @@ model Character {
   id       String @id @default(auto()) @map("_id") @db.ObjectId
   name     String
   bio      String
+  height   String
   like     String
   notlike  String
-  height   String
   weight   String
   vitality Int
   moves    Move[]
 }
 
 model Move {
-  id                    String    @id @default(auto()) @map("_id") @db.ObjectId
-  character             Character @relation(fields: [characterId], references: [id])
-  characterId           String    @db.ObjectId
+  id                    String     @id @default(auto()) @map("_id") @db.ObjectId
   name                  String
   type                  String
+  image                 String?
+  classic               String
+  modern                String?
+  manual                String?
   note                  String?
   driveGauge            Int?
   video                 String?
   definition            String?
-  classic               String
-  modern                String?
-  manual                String?
   startup               Int?
   active                String?
   missRecovery          Int?
@@ -39,11 +38,13 @@ model Move {
   blockStunRecovery     Int?
   cancelable            String?
   damage                Int?
+  scaling               String?
   driveIncreaseHit      Int?
   driveDecreaseBlock    Int?
   driveDecreasePunish   Int?
   superArtGaugeIncrease Int?
   properties            String?
-  scaling               String?
-  miscellaneous          String?
+  miscellaneous         String?
+  Character             Character? @relation(fields: [characterId], references: [id])
+  characterId           String?    @db.ObjectId
 }

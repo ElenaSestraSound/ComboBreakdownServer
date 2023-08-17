@@ -1,4 +1,4 @@
-interface Character {
+export type CharacterDetails = {
   name: string;
   bio: string;
   like: string;
@@ -6,18 +6,19 @@ interface Character {
   height: string;
   weight: string;
   vitality: number;
-}
+};
 
-interface Move {
+export type Move = {
   name: string;
   type: string;
+  image?: string;
+  classic: string;
+  modern?: string;
+  manual?: string;
   note?: string;
   driveGauge?: number;
   video?: string;
   definition?: string;
-  classic: string;
-  modern?: string;
-  manual?: string;
   startup?: number;
   active?: string;
   missRecovery?: number;
@@ -25,13 +26,13 @@ interface Move {
   blockStunRecovery?: number;
   cancelable?: string;
   damage?: number;
+  scaling?: string;
   driveIncreaseHit?: number;
   driveDecreaseBlock?: number;
   driveDecreasePunish?: number;
   superArtGaugeIncrease?: number;
   properties?: string;
-  scaling?: string;
   miscellaneous?: string;
-}
+};
 
-export { Character, Move };
+export type Character = CharacterDetails & Move[];
