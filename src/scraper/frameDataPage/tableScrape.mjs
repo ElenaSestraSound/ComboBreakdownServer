@@ -1,4 +1,4 @@
-import { replaceWithAbbreviation } from '../helperFunctions/_handleImage.mjs'
+// import { replaceWithAbbreviation } from '../helperFunctions/_handleImage.mjs'
 
 function extractDataFromTable() {
 
@@ -133,7 +133,8 @@ function extractDataFromTable() {
     
     const classicMoves = () => {
       const images = getImages(row.children[0]);
-      return replaceWithAbbreviation(images).join('');
+      const resultString = replaceWithAbbreviation(images).join('');
+      return resultString === "" ? 'NO INPUT' : resultString;
     }
     result.classic = classicMoves();
   

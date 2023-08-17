@@ -77,16 +77,30 @@ async function run(character) {
   console.log('Seeded:', newChar);
 }
 
+// async function seedDatabase(characterArray) {
+//   for (const character of characterArray) {
+//     run(character)
+//     .catch((e) => {
+//       console.log(e);
+//       process.exit(1);
+//     })
+//     .finally(async () => {
+//       await prisma.$disconnect();
+//     });;
+//   }
+// }
+
 async function seedDatabase(characterArray) {
   for (const character of characterArray) {
-    run(character)
-    .catch((e) => {
+    try {
+      await run(character);
+    } catch (e) {
       console.log(e);
       process.exit(1);
-    })
-    .finally(async () => {
-      await prisma.$disconnect();
-    });;
+    }
   }
+  await prisma.$disconnect();
 }
+
+
 seedDatabase(seedData);

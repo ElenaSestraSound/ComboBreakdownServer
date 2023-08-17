@@ -56,16 +56,44 @@ const getScrapeData = async () => {
   const characterMap = new Map();
   const browser = await puppeteer.launch();
 
+  // for (const character in charactersUrlObject) {
+  //   const page = await browser.newPage();
+  //   await page.goto(charactersUrlObject[character]);
+  //   const data = await processCharacterPage(charactersUrlObject[character]);
+  //   characterMap.set(data.name, data);
+  //   break;
+  //   await page.close();
+  // }
+  
+  // for (const character in charactersUrlObject) {
+  //   const page = await browser.newPage();
+  //   await page.goto(charactersUrlObject[character] + '/frame');
+  //   const result = await processFrameDataPage(charactersUrlObject[character] + '/frame'); 
+  //   if(characterMap.has(character)) {
+  //     const characterObject = characterMap.get(character);
+  //     characterObject.moves = result.data;
+  //     characterObject.vitality = result.vitality;
+  //   }
+  //   break;
+  //   await page.close();
+  // }
+
+
+
   for (const character in charactersUrlObject) {
+    
     const page = await browser.newPage();
     await page.goto(charactersUrlObject[character]);
     const data = await processCharacterPage(charactersUrlObject[character]);
     characterMap.set(data.name, data);
-    break;
+    
     await page.close();
+    
   }
-  
+
+
   for (const character in charactersUrlObject) {
+
     const page = await browser.newPage();
     await page.goto(charactersUrlObject[character] + '/frame');
     const result = await processFrameDataPage(charactersUrlObject[character] + '/frame'); 
@@ -74,9 +102,13 @@ const getScrapeData = async () => {
       characterObject.moves = result.data;
       characterObject.vitality = result.vitality;
     }
-    break;
-    await page.close();
+  
+  await page.close();
+
   }
+
+
+
 
   await browser.close();
 

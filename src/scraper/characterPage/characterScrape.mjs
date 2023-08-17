@@ -8,7 +8,7 @@ function scrapeCharacterStats() {
     notlike: document.querySelector('.detail_detail__profile__info__DAhwF').children[0].children[1].textContent,
     height: document.querySelector('.detail_detail__profile__info__DAhwF').children[2].children[1].textContent,
     weight: document.querySelector('.detail_detail__profile__info__DAhwF').children[3].children[1].textContent,
-    vitality: '',
+    vitality: 0,
     moves: []
   };
   return result;
