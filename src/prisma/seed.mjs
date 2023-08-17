@@ -88,6 +88,12 @@ async function run() {
   console.log('Seeded:', newChar);
 }
 
+// async function seedDatabase(characterArray) {
+//   for (const character of characterArray) {
+//     await run(character);
+//   }
+// }
+
 run()
   .catch((e) => {
     console.log(e);
