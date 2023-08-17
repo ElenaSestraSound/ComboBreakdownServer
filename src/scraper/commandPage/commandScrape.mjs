@@ -1,4 +1,6 @@
-function scrapeCommandList() {
+// import { getImages } from '../helperFunctions/getContent.mjs';
+
+function getCommandPageData() {
   const container = document.querySelectorAll('#Movelist > div.movelist_movelistarea__Y5Ucu > ul > li');
 
   const extractFileName = (url) => {
@@ -34,7 +36,11 @@ function scrapeCommandList() {
   
   container.forEach(elem => {
     console.log(elem.children[1].children[0].textContent);
-    console.log(getImages(elem.children[2]))
+    let image = getImages(elem.children[2]);
+    if (!/\.png$/.test(image)) {
+      image = getImages(elem.children[2].nextElementSibling);
+    }
+    console.log(image)
   })
 }
-scrapeCommandList()
+getCommandPageData()
