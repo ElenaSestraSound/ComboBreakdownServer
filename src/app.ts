@@ -2,7 +2,7 @@ import express, { Express, Request, Response } from 'express';
 import cors from 'cors';
 import { ErrorHandler } from './middleware/errorHandler';
 import { router } from './scraper/routes';
-import { prisma } from './prisma/client'
+import { prisma } from './prisma/client.js'
 
 const app: Express = express();
 
