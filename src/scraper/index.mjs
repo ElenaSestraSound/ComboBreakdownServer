@@ -1,6 +1,7 @@
 import puppeteer from 'puppeteer';
-import { scrapeCharacterStats, getVitality } from './characterPage/characterScrape.mjs';
-import { extractDataFromTable } from './frameDataPage/tableScrape.mjs'
+import { getCharacterStats, getVitality } from './characterPage/characterScrape.mjs';
+import { extractDataFromTable } from './frameDataPage/tableScrape.mjs';
+import { getCommandPageData } from './commandListPage/commandScrape.mjs'
 
 const baseUrl = 'https://www.streetfighter.com/6/character/';
 const characterUrlNames = [
@@ -24,7 +25,7 @@ async function processCharacterPage(url) {
   await page.setUserAgent('Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/88.0.4324.190 Safari/537.36');
   await page.goto(url);
 
-  const data = await page.evaluate(`(${scrapeCharacterStats.toString()})();`);
+  const data = await page.evaluate(`(${getCharacterStats.toString()})();`);
 
   await browser.close();
   return data;
@@ -58,7 +59,7 @@ async function processCommandListPage(url) {
   await page.setUserAgent('Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/88.0.4324.190 Safari/537.36');
   await page.goto(url);
 
-  // const data = await page.evaluate(`(${scrapeCharacterStats.toString()})();`);
+  const data = await page.evaluate(`(${getCommandPageData.toString()})();`);
 
   await browser.close();
   return data;
@@ -72,32 +73,47 @@ const getScrapeData = async () => {
   const browser = await puppeteer.launch();
 
   for (const character in charactersUrlObject) {
-    
+
     const page = await browser.newPage();
+  
+    // process character details
+
     await page.goto(charactersUrlObject[character]);
-    const data = await processCharacterPage(charactersUrlObject[character]);
-    characterMap.set(data.name, data);
+    const characterData = await processCharacterPage(charactersUrlObject[character]);
+
+    characterMap.set(characterData.name, characterData);
     
-    await page.close();
-    
-  }
+    // process frame data
 
-
-  for (const character in charactersUrlObject) {
-
-    const page = await browser.newPage();
     await page.goto(charactersUrlObject[character] + '/frame');
-    const result = await processFrameDataPage(charactersUrlObject[character] + '/frame'); 
+    const frameData = await processFrameDataPage(charactersUrlObject[character] + '/frame');
+  
     if(characterMap.has(character)) {
       const characterObject = characterMap.get(character);
-      characterObject.moves = result.data;
-      characterObject.vitality = result.vitality;
+      characterObject.moves = frameData.data;
+      characterObject.vitality = frameData.vitality;
     }
-  
-  await page.close();
 
+    // // process command list page, get value for driveGauge
+
+    await page.goto(charactersUrlObject[character] + '/movelist');
+    const commandPageData = await processCommandListPage(charactersUrlObject[character] + '/movelist');
+    
+    if (characterMap.has(character)) {
+      const characterObject = characterMap.get(character);
+      
+      commandPageData.forEach(commandMove => {
+          const foundMove = characterObject.moves.find(move => move.name === commandMove.name);
+          if (foundMove) {
+              foundMove.driveGauge = commandMove.driveGauge;
+          }
+      });
+    }
+    
+    await page.close();
+
+    break;
   }
-
 
   await browser.close();
 

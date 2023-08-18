@@ -1,6 +1,6 @@
 /* on the top character page, eg. https://www.streetfighter.com/6/character/zangief */
 
-function scrapeCharacterStats() {
+function getCharacterStats() {
   const result = {
     name: window.location.pathname.split('/').filter(Boolean).pop(),
     bio: document.querySelector('.detail_detail__profile__text__8JGgO').textContent,
@@ -21,4 +21,4 @@ function getVitality () {
   return parseInt(result);
 }
 
-export { scrapeCharacterStats, getVitality };
+export { getCharacterStats, getVitality };

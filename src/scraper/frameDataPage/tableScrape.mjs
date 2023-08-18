@@ -163,6 +163,6 @@ function extractDataFromTable() {
   
   return results;
 
-}
+};
 
 export { extractDataFromTable };

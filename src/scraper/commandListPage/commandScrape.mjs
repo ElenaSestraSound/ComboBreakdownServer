@@ -37,13 +37,18 @@ function getCommandPageData() {
     }
     return '';
   };
+
+  const results = []
   
   container.forEach(element => {
     const name = element.querySelector('.movelist_arts__FFmMk').textContent;
     const gauge = getImage(element.querySelector('.movelist_movelist_drive__dN3Il'));
     let driveGauge = gauge.replace(/^(.+)\.\w+$/, '$1');
-    console.log({name, driveGauge});
+    results.push({name, driveGauge});
   })
-}
 
-getCommandPageData()
+  return results;
+  
+};
+
+export { getCommandPageData };
