@@ -16,7 +16,7 @@ export type Move = {
   modern?: string;
   manual?: string;
   note?: string;
-  driveGauge?: number;
+  driveGauge?: string;
   video?: string;
   definition?: string;
   startup?: number;
