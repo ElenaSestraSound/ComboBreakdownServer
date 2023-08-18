@@ -4,10 +4,10 @@ import { getAllCharacterData, postSpecificCharacterData } from './controller/scr
 
 const router: Router = express.Router();
 
-/* database routes */
-router.get('/character/all', getAllCharacters);
-router.get('/character/:name', getOneCharacterByName);
-router.get('./character/list', getCharacterListWithoutMoves)
+// /* database routes */
+// router.get('/character/all', getAllCharacters);
+// router.get('/character/:name', getOneCharacterByName);
+// router.get('./character/list', getCharacterListWithoutMoves)
 
 /* scraping routes */
 router.get('/scrape/all', getAllCharacterData);

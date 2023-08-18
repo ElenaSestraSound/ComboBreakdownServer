@@ -12,7 +12,7 @@ function formatMove(data) {
     name: data.name,
     type: data.type,
     note: data.note || null,
-    driveGauge: parseInt(data.driveGauge, 10) || null,
+    driveGauge: data.driveGauge || null,
     video: data.video || null,
     definition: data.definition || null,
     classic: data.classic,
