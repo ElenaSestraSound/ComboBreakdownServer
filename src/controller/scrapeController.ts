@@ -6,7 +6,8 @@ import { seedDatabase } from '../prisma/seed.mjs'
 
 const getAllCharacterData = async (req: Request, res: Response, next: NextFunction) => {
   try {
-
+    await seedDatabase();
+    res.status(200);
   } catch (err) {
     next(err);
   }
