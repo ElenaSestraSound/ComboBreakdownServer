@@ -1,5 +1,4 @@
 import { PrismaClient } from '@prisma/client';
-import { rawMoves, character } from './_mocks.mjs';
 import { formatMove } from '../SCRAPER/helperFunctions/formatForDataBase.mjs';
 import { getScrapeData } from '../SCRAPER/index.mjs';
 
@@ -7,7 +6,6 @@ const prisma = new PrismaClient();
 
 function mapFormattedMovesData(rawData) {
   const data = rawData.map(element => formatMove(element));
-  // console.log(data);
   return data;
 }
 
@@ -23,7 +21,6 @@ async function checkIfCharacterExists(characterName) {
   return false;
 }
 
-
 function stringifyMovesProperty(characterArray) {
   const data = characterArray.map(character => {
     const transformedMoves = mapFormattedMovesData(character.moves);
@@ -32,25 +29,13 @@ function stringifyMovesProperty(characterArray) {
       moves: transformedMoves
     };
   });
-  // console.log(data)
   return data;
 }
-
-
-
-// function stringifyMovesProperty (characterArray) {
-//   // console.log(characterArray);
-//   const data = characterArray.map(character => {
-//     mapFormattedMovesData(character.moves)
-//   });
-//   // console.log(data);
-//   return data;
-// }
 
 const scrapeData = await getScrapeData();
 const seedData = stringifyMovesProperty(scrapeData);
 
-/* seed the database */
+/* create characters */
 
 async function run(character) {
   console.log(character);
@@ -77,19 +62,6 @@ async function run(character) {
   console.log('Seeded:', newChar);
 }
 
-// async function seedDatabase(characterArray) {
-//   for (const character of characterArray) {
-//     run(character)
-//     .catch((e) => {
-//       console.log(e);
-//       process.exit(1);
-//     })
-//     .finally(async () => {
-//       await prisma.$disconnect();
-//     });;
-//   }
-// }
-
 async function seedDatabase(characterArray) {
   for (const character of characterArray) {
     try {
@@ -102,5 +74,8 @@ async function seedDatabase(characterArray) {
   await prisma.$disconnect();
 }
 
+/* seed the database */
 
 seedDatabase(seedData);
+
+export { seedDatabase };

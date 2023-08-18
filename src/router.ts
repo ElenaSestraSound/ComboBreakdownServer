@@ -1,15 +1,16 @@
 import express, { Router } from 'express';
-import { getAllCharacters, getOneCharacterByName } from './controller/dbController';
+import { getAllCharacters, getOneCharacterByName, getCharacterListWithoutMoves } from './controller/_dbController';
 import { getAllCharacterData, postSpecificCharacterData } from './controller/scrapeController';
 
 const router: Router = express.Router();
 
 /* database routes */
-router.get('/characters', getAllCharacters);
+router.get('/character/all', getAllCharacters);
 router.get('/character/:name', getOneCharacterByName);
+router.get('./character/list', getCharacterListWithoutMoves)
 
 /* scraping routes */
-router.get('/scrape', getAllCharacterData);
-router.post('/scrapeUnique', postSpecificCharacterData);
+router.get('/scrape/all', getAllCharacterData);
+router.post('/scrape/:name', postSpecificCharacterData);
 
 export { router };

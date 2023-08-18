@@ -1,9 +1,22 @@
 import { Request, Response, NextFunction } from 'express';
-import { db } from '../model/characterModel';
+import { db } from '../model/_characterModel';
 
 /* *** GET *** */
 
 const getAllCharacters = async (req: Request, res: Response, next: NextFunction) => {
+  try {
+
+    const characters = await db.getAllCharacters();
+    res.status(200).send(characters);
+
+  } catch (err) {
+    next(err);
+  }
+};
+
+/* *** GET *** */
+
+const getCharacterListWithoutMoves = async (req: Request, res: Response, next: NextFunction) => {
   try {
 
     const characters = await db.getAllCharacters();
@@ -33,4 +46,4 @@ const getOneCharacterByName = async (req: Request, res: Response, next: NextFunc
   }
 };
 
-export { getAllCharacters, getOneCharacterByName };
+export { getAllCharacters, getOneCharacterByName, getCharacterListWithoutMoves };

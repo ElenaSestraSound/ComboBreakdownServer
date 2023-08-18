@@ -35,4 +35,4 @@ export type Move = {
   miscellaneous?: string;
 };
 
-export type Character = CharacterDetails & Move[];
+export type Character = CharacterDetails;
