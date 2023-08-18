@@ -1,8 +1,9 @@
 import puppeteer from 'puppeteer';
-import { getCharacterStats, getVitality } from './characterPage/characterScrape.mjs';
+import { getCharacterStats } from './characterPage/characterScrape.mjs';
 import { getVitality } from './frameDataPage/vitalityValue.mjs'
 import { extractDataFromTable } from './frameDataPage/tableScrape.mjs';
 import { getCommandPageData } from './commandListPage/commandScrape.mjs'
+import { getModernControls } from './frameDataPage/scrapeModern.mjs';
 
 const baseUrl = 'https://www.streetfighter.com/6/character/';
 const characterUrlNames = [
@@ -21,7 +22,7 @@ async function processCharacterPage(url) {
   
   console.log(`Processing ${url}`);
 
-  const browser = await puppeteer.launch({ headless: false, args: ['--no-sandbox'] });
+  const browser = await puppeteer.launch({ headless: true, args: ['--no-sandbox'] });
   const page = await browser.newPage();
   await page.setUserAgent('Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/88.0.4324.190 Safari/537.36');
   await page.goto(url);
@@ -36,7 +37,7 @@ async function processFrameDataPage(url) {
   
   console.log(`Processing ${url}`);
 
-  const browser = await puppeteer.launch({ headless: false, args: ['--no-sandbox'] });
+  const browser = await puppeteer.launch({ headless: true, args: ['--no-sandbox'] });
   const page = await browser.newPage();
   await page.setUserAgent('Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/88.0.4324.190 Safari/537.36');
   await page.goto(url);
@@ -44,7 +45,29 @@ async function processFrameDataPage(url) {
   const data = await page.evaluate(`(${extractDataFromTable.toString()})()`);
   const vitality = await page.evaluate(`(${getVitality.toString()})()`);
 
+
+  // await page.evaluate(() => {
+  //   let element = document.querySelector('.frame_movelist_active__gNWMA');
+  //   element.click();
+  // });
+  const elementDetails = await page.evaluate(() => {
+    const element = document.querySelector('.frame_movelist_active__gNWMA');
+    if (element) {
+        return element.outerHTML;  // or whatever properties you want to extract
+    }
+    return null;
+});
+console.log(elementDetails);
+
+  // await page.evaluate(() => {
+  //     document.querySelector('.frame_movelist_tabs__b_QlQ').click();
+  // });
+  // await page.click('.frame_movelist_image__FrWZY', { clickCount: 1 });
+  // await page.click('.frame_movelist_active__gNWMA', { clickCount: 1 });
+  const modern = await page.evaluate(`(${getModernControls.toString()})()`);
+
   await browser.close();
+    console.log(modern);
   return {
     data,
     vitality
@@ -55,7 +78,7 @@ async function processCommandListPage(url) {
   
   console.log(`Processing ${url}`);
 
-  const browser = await puppeteer.launch({ headless: false, args: ['--no-sandbox'] });
+  const browser = await puppeteer.launch({ headless: true, args: ['--no-sandbox'] });
   const page = await browser.newPage();
   await page.setUserAgent('Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/88.0.4324.190 Safari/537.36');
   await page.goto(url);
@@ -120,6 +143,7 @@ const getScrapeData = async () => {
 
   const characterArray = [...characterMap.values()];
 
+  console.log(characterArray);
   return characterArray;
 };
 

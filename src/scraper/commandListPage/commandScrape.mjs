@@ -1,6 +1,7 @@
 function getCommandPageData() {
 
   const container = document.querySelectorAll('#Movelist > div.movelist_movelistarea__Y5Ucu > ul > li');
+  const movieContainer = document.querySelectorAll('#MovelistVideo > div.movelist_video_inner__q2Yvq');
   
   const results = []
 
@@ -51,9 +52,15 @@ function getCommandPageData() {
     let driveGauge = gauge.replace(/^(.+)\.\w+$/, '$1');
     results.push({name, driveGauge});
   })
-
+  
+  // const description = movieContainer.querySelector('.movelist_inner__PCaCO').textContent;
   return results;
   
 };
 
 export { getCommandPageData };
+
+// getCommandPageData();
+
+// #MovelistVideo > div.movelist_video_inner__q2Yvq > div.movelist_video_text__q_ClG > div
+// #MovelistVideo > div.movelist_video_inner__q2Yvq > div.movelist_video_text__q_ClG > div
