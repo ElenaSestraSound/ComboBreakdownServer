@@ -14,33 +14,36 @@ function getCommandPageData() {
       const filename = extractFileName(element.src);
       return filename ? [filename] : '';
     }
-    return [];
+    return '';
   };
 
-  const getImages = (element) => {
+  const getImage = (element) => {
     if (!element) return '';
-    let images = [];
-    element.childNodes.forEach(child => {
-      if (child.nodeType === 1) {
-        const imageContent = handleImage(child);
-        if (imageContent.length) {
-          images.push(...imageContent);
-        } else {
-          const childImages = getImages(child);
-          images = images.concat(childImages);
-        }
+    let image = handleImage(element)[0];
+    if (/\.png$/.test(image)) {
+      return image.toString();
+    }
+    for (const child of element.children) {
+      image = getImage(child);
+      if (image) return image;
+    }
+    let currentElement = element;
+    while (!/\.png$/.test(image) && currentElement.nextElementSibling) {
+      currentElement = currentElement.nextElementSibling;
+      image = handleImage(currentElement)[0];
+      if (/\.png$/.test(image)) {
+        return image.toString();
       }
-    });
-    return images.toString();
+    }
+    return '';
   };
   
-  container.forEach(elem => {
-    console.log(elem.children[1].children[0].textContent);
-    let image = getImages(elem.children[2]);
-    if (!/\.png$/.test(image)) {
-      image = getImages(elem.children[2].nextElementSibling);
-    }
-    console.log(image)
+  container.forEach(element => {
+    const name = element.querySelector('.movelist_arts__FFmMk').textContent;
+    const gauge = getImage(element.querySelector('.movelist_movelist_drive__dN3Il'));
+    let driveGauge = gauge.replace(/^(.+)\.\w+$/, '$1');
+    console.log({name, driveGauge});
   })
 }
+
 getCommandPageData()
