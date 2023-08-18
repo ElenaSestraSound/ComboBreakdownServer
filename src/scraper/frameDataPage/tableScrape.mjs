@@ -1,5 +1,3 @@
-// import { replaceWithAbbreviation } from '../helperFunctions/_handleImage.mjs'
-
 function extractDataFromTable() {
 
   const filenameAbbreviations = {
@@ -34,13 +32,22 @@ function extractDataFromTable() {
     'modern_sp.png': 'SP',
   };
 
-  const moveTypes = ['Normal Moves', 'Unique Attacks', 'Special Moves', 'Super Arts', 'Throws', 'Common Moves'];
+  const moveTypes = [
+    'Normal Moves',
+    'Unique Attacks',
+    'Special Moves',
+    'Super Arts',
+    'Throws',
+    'Common Moves'
+  ];
   
   const rows = document.querySelectorAll('#framearea > div > table > tbody > tr');
   
   const results = [];
   
   let styleIndex = -1;
+
+  /* helper functions to get content */
 
   const getText = (element) => {
     if (!element) return [];
@@ -70,6 +77,8 @@ function extractDataFromTable() {
     return images;
   };
 
+  /* helper functions to format image urls */
+
   const extractFileName = (url) => {
     const regexSelectImgFileName = /([^\/]+)$/;
     const match = url.match(regexSelectImgFileName);
@@ -90,6 +99,8 @@ function extractDataFromTable() {
       return filenameAbbreviations[filename] || filename;
     });
   };
+
+  /* main function to traverse the table */
   
   rows.forEach(row => {
   

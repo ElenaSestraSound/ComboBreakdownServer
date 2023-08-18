@@ -1,5 +1,6 @@
 import puppeteer from 'puppeteer';
 import { getCharacterStats, getVitality } from './characterPage/characterScrape.mjs';
+import { getVitality } from './frameDataPage/vitalityValue.mjs'
 import { extractDataFromTable } from './frameDataPage/tableScrape.mjs';
 import { getCommandPageData } from './commandListPage/commandScrape.mjs'
 

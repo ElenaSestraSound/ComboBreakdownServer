@@ -1,7 +1,10 @@
-// import { getImages } from '../helperFunctions/getContent.mjs';
-
 function getCommandPageData() {
+
   const container = document.querySelectorAll('#Movelist > div.movelist_movelistarea__Y5Ucu > ul > li');
+  
+  const results = []
+
+  /* helper functions to format image urls */
 
   const extractFileName = (url) => {
     const regexSelectImgFileName = /([^\/]+)$/;
@@ -16,6 +19,8 @@ function getCommandPageData() {
     }
     return '';
   };
+
+  /* helper function to find the image url */
 
   const getImage = (element) => {
     if (!element) return '';
@@ -38,7 +43,7 @@ function getCommandPageData() {
     return '';
   };
 
-  const results = []
+  /* main function to traverse through the moves command list */
   
   container.forEach(element => {
     const name = element.querySelector('.movelist_arts__FFmMk').textContent;

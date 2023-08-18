@@ -1,6 +1,5 @@
-/* on the top character page, eg. https://www.streetfighter.com/6/character/zangief */
-
 function getCharacterStats() {
+
   const result = {
     name: window.location.pathname.split('/').filter(Boolean).pop(),
     bio: document.querySelector('.detail_detail__profile__text__8JGgO').textContent,
@@ -14,11 +13,4 @@ function getCharacterStats() {
   return result;
 }
 
-/* on the frame data page, eg. https://www.streetfighter.com/6/character/zangief/frame */
-
-function getVitality () {
-  const result = document.querySelector('.frame_attention__6H6pd > span').textContent;
-  return parseInt(result);
-}
-
-export { getCharacterStats, getVitality };
+export { getCharacterStats };

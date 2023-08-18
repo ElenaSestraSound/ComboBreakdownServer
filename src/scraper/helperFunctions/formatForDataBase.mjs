@@ -7,7 +7,7 @@ function formatMove(data) {
   ) {
     throw new Error("Invalid or missing required fields (name, type, classic).");
   }
-  
+
   const formattedMove = {
     name: data.name,
     type: data.type,
@@ -33,9 +33,11 @@ function formatMove(data) {
     properties: data.properties || null,
     miscellaneous: data.miscellaneous || null
   };
+
   const cleanedMove = Object.fromEntries(
     Object.entries(formattedMove).filter(([_, value]) => value !== null)
   );
+
   return cleanedMove;
 
 };
