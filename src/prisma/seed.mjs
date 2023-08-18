@@ -1,7 +1,7 @@
 import { PrismaClient } from '@prisma/client';
-import { rawMoves, character } from './mocks.mjs';
-import { formatMove } from '../scraper/helperFunctions/formatForDataBase.mjs';
-import { getScrapeData } from '../scraper/index.mjs';
+import { rawMoves, character } from './_mocks.mjs';
+import { formatMove } from '../SCRAPER/helperFunctions/formatForDataBase.mjs';
+import { getScrapeData } from '../SCRAPER/index.mjs';
 
 const prisma = new PrismaClient();
 

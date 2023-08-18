@@ -3,6 +3,9 @@ import { Character } from './type';
 
 const db = {
 
+  getAllCharacters: ()=>{},
+  getCharacterByName: (name: string)=>{}
+
   // getAllCharacters: async (): Promise<Character[]> => {
   //   return prisma.character.findMany();
   // },
