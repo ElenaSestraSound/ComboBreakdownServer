@@ -37,37 +37,82 @@ async function processFrameDataPage(url) {
   
   console.log(`Processing ${url}`);
 
-  const browser = await puppeteer.launch({ headless: true, args: ['--no-sandbox'] });
+  const browser = await puppeteer.launch({ headless: false, args: ['--no-sandbox'] });
+
   const page = await browser.newPage();
   await page.setUserAgent('Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/88.0.4324.190 Safari/537.36');
-  await page.goto(url);
+  
+  await Promise.all([
+    page.goto(url),
+    page.waitForNavigation({ waitUntil: 'networkidle0' }),
+  ]);
+  
+  async function handlePageActions(page) {
+    try {
+
+      await page.waitForSelector('#CybotCookiebotDialogBodyLevelButtonLevelOptinAllowAll', {visible: true})
+      await page.click('#CybotCookiebotDialogBodyLevelButtonLevelOptinAllowAll');
+
+      await page.waitForSelector('.frame_movelist_tabs__b_QlQ > li', {visible: true});
+      
+      await Promise.all([
+        page.waitForNavigation(),
+        page.click('.frame_movelist_tabs__b_QlQ > li'), // trigger a navigation
+      ]);
+      
+      await page.waitForSelector('.frame_modern__BJwQe', {visible: true});
+      
+      const modern = await page.evaluate(`(${getModernControls.toString()})()`);
+      console.log(modern);
+
+    } catch (error) {
+      console.error("There was an error during page actions:", error);
+    }
+  }
+  await handlePageActions(page);
 
   const data = await page.evaluate(`(${extractDataFromTable.toString()})()`);
   const vitality = await page.evaluate(`(${getVitality.toString()})()`);
+
+  // page
+  //   .then(() => {
+  //       let element = document.querySelector('#CybotCookiebotDialogBodyLevelButtonLevelOptinAllowAll');
+  //   element.click()
+  //   })
+  //   .then(() => {
+  //     page.click('.frame_movelist_active__gNWMA', { clickCount: 1 })
+  //   })
+  //   .then(() => {
+  //     const modern = page.evaluate(`(${getModernControls.toString()})()`);
+  //   console.log(modern);
+  //   });
+
 
 
   // await page.evaluate(() => {
   //   let element = document.querySelector('.frame_movelist_active__gNWMA');
   //   element.click();
   // });
-  const elementDetails = await page.evaluate(() => {
-    const element = document.querySelector('.frame_movelist_active__gNWMA');
-    if (element) {
-        return element.outerHTML;  // or whatever properties you want to extract
-    }
-    return null;
-});
-console.log(elementDetails);
+  // await page.waitForTimeout(3000);
+//   const elementDetails = await page.evaluate(() => {
+//     const element = document.querySelector('.frame_movelist_active__gNWMA');
+//     if (element) {
+//         return element.outerHTML;
+//     }
+//     return null;
+// });
+// console.log(elementDetails);
 
   // await page.evaluate(() => {
   //     document.querySelector('.frame_movelist_tabs__b_QlQ').click();
   // });
   // await page.click('.frame_movelist_image__FrWZY', { clickCount: 1 });
   // await page.click('.frame_movelist_active__gNWMA', { clickCount: 1 });
-  const modern = await page.evaluate(`(${getModernControls.toString()})()`);
+
+  // const modern = await page.evaluate(`(${getModernControls.toString()})()`);
+  // console.log(modern);
 
   await browser.close();
-    console.log(modern);
   return {
     data,
     vitality
@@ -143,7 +188,7 @@ const getScrapeData = async () => {
 
   const characterArray = [...characterMap.values()];
 
-  console.log(characterArray);
+  // console.log(characterArray);
   return characterArray;
 };
 
