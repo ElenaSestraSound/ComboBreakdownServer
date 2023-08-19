@@ -3,7 +3,6 @@ import { getCharacterStats } from './characterPage/characterScrape.mjs';
 import { getVitality } from './frameDataPage/vitalityValue.mjs'
 import { extractDataFromTable } from './frameDataPage/tableScrape.mjs';
 import { getCommandPageData } from './commandListPage/commandScrape.mjs'
-import { getModernControls } from './frameDataPage/scrapeModern.mjs';
 
 const baseUrl = 'https://www.streetfighter.com/6/character/';
 
@@ -38,7 +37,7 @@ async function processFrameDataPage(url) {
   
   console.log(`Processing ${url}`);
 
-  const browser = await puppeteer.launch({ headless: false, args: ['--no-sandbox'] });
+  const browser = await puppeteer.launch({ headless: true, args: ['--no-sandbox'] });
 
   const page = await browser.newPage();
   await page.setUserAgent('Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/88.0.4324.190 Safari/537.36');
@@ -49,32 +48,32 @@ async function processFrameDataPage(url) {
   ]);
 
   
-  async function handlePageActions(page) {
-    try {
+  // async function handlePageActions(page) {
+  //   try {
       
-      await page.waitForSelector('#CybotCookiebotDialogBodyLevelButtonLevelOptinAllowAll', {visible: true});
-      await page.click('#CybotCookiebotDialogBodyLevelButtonLevelOptinAllowAll');
+  //     await page.waitForSelector('#CybotCookiebotDialogBodyLevelButtonLevelOptinAllowAll', {visible: true});
+  //     await page.click('#CybotCookiebotDialogBodyLevelButtonLevelOptinAllowAll');
       
-      // console.log(await page.waitForSelector('div.frame_movelist_tabs_box__Bh5Q4 > div >>> li'));
+  //     // console.log(await page.waitForSelector('div.frame_movelist_tabs_box__Bh5Q4 > div >>> li'));
 
-      await page.waitForSelector('.frame_movelist_active__gNWMA', {visible: true});
-      await page.click('.frame_movelist_active__gNWMA  + li');
+  //     await page.waitForSelector('.frame_movelist_active__gNWMA', {visible: true});
+  //     await page.click('.frame_movelist_active__gNWMA  + li');
 
 
-      // await Promise.all([
-      //   page.waitForNavigation(),
-      // ]);
+  //     // await Promise.all([
+  //     //   page.waitForNavigation(),
+  //     // ]);
       
-      await page.waitForSelector('.frame_modern__BJwQe', {visible: true});
+  //     await page.waitForSelector('.frame_modern__BJwQe', {visible: true});
       
-      const modern = await page.evaluate(`(${getModernControls.toString()})()`);
-      console.log(modern);
+  //     const modern = await page.evaluate(`(${getModernControls.toString()})()`);
+  //     console.log(modern);
 
-    } catch (error) {
-      console.error("There was an error during page actions:", error);
-    }
-  }
-  await handlePageActions(page);
+  //   } catch (error) {
+  //     console.error("There was an error during page actions:", error);
+  //   }
+  // }
+  // await handlePageActions(page);
 
   const data = await page.evaluate(`(${extractDataFromTable.toString()})()`);
   const vitality = await page.evaluate(`(${getVitality.toString()})()`);

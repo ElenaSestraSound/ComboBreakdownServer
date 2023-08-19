@@ -53,14 +53,8 @@ function getCommandPageData() {
     results.push({name, driveGauge});
   })
   
-  // const description = movieContainer.querySelector('.movelist_inner__PCaCO').textContent;
   return results;
   
 };
 
 export { getCommandPageData };
-
-// getCommandPageData();
-
-// #MovelistVideo > div.movelist_video_inner__q2Yvq > div.movelist_video_text__q_ClG > div
-// #MovelistVideo > div.movelist_video_inner__q2Yvq > div.movelist_video_text__q_ClG > div

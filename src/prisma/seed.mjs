@@ -1,5 +1,5 @@
 import { PrismaClient } from '@prisma/client';
-import { formatMove } from '../SCRAPER/helperFunctions/formatForDataBase.mjs';
+import { formatMove } from '../SCRAPER/helperFunctions/FormatForDataBase.mjs';
 import { getScrapeData } from '../SCRAPER/index.mjs';
 
 const prisma = new PrismaClient();
