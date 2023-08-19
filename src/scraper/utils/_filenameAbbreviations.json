@@ -15,7 +15,6 @@
   "icon_punch_l.png": "LP",
   "icon_punch_m.png": "MP",
   "key-all.png": "*",
-  "key-barrage.png": "kb",
   "key-circle.png": "C",
   "key-d.png": "2",
   "key-dl.png": "1",
@@ -37,5 +36,9 @@
   "modern_sp.png": "SP",
   "s1.png": "s1",
   "s2.png": "s2",
-  "s3.png": "s3"
+  "s3.png": "s3",
+  "key-barrage.png": "KB",
+  "key-lc.png": "LC",
+  "key-rc.png": "RC",
+  "key-dc.png": "DC"
 }

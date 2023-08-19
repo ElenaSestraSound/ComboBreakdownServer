@@ -30,6 +30,10 @@ function getModernControls() {
     'modern_l.png': 'L',
     'modern_m.png': 'M',
     'modern_sp.png': 'SP',
+    'key-barrage.png': 'KB',
+    'key-lc.png': 'LC',
+    'key-rc.png': 'RC',
+    'key-dc.png': 'DC'
   };
 
   const moveTypes = [
@@ -123,8 +127,17 @@ function getModernControls() {
 
   });
 
-  return results;
+  const char = {}
+
+  let url = window.location.pathname; 
+  let segments = url.split('/');
+  let characterName = segments[3];
+
+  char.name = characterName;
+  char.modern = results;
+  return char;
 
 }
+getModernControls();
 
-export { getModernControls };
+// export { getModernControls };

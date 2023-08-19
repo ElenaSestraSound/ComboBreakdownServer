@@ -28,6 +28,10 @@ const filenameAbbreviations = {
   'modern_l.png': 'L',
   'modern_m.png': 'M',
   'modern_sp.png': 'SP',
+  'key-barrage.png': 'KB',
+  'key-lc.png': 'LC',
+  'key-rc.png': 'RC',
+  'key-dc.png': 'DC'
 };
 
 export { filenameAbbreviations }

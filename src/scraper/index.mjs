@@ -6,10 +6,7 @@ import { getCommandPageData } from './commandListPage/commandScrape.mjs'
 import { getModernControls } from './frameDataPage/scrapeModern.mjs';
 
 const baseUrl = 'https://www.streetfighter.com/6/character/';
-const characterUrlNames = [
-  'rashid', 'cammy', 'lily', 'zangief', 'jp', 'marisa', 'manon', 'deejay', 'ehonda',
-  'dhalsim', 'blanka', 'ken', 'juri', 'kimberly', 'guile', 'chunli', 'jamie', 'luke', 'ryu'
-];
+c
 
 const charactersUrlObject = characterUrlNames.reduce((obj, character) => {
   obj[character] = baseUrl + character;
@@ -46,19 +43,23 @@ async function processFrameDataPage(url) {
     page.goto(url),
     page.waitForNavigation({ waitUntil: 'networkidle0' }),
   ]);
+
   
   async function handlePageActions(page) {
     try {
-
-      await page.waitForSelector('#CybotCookiebotDialogBodyLevelButtonLevelOptinAllowAll', {visible: true})
-      await page.click('#CybotCookiebotDialogBodyLevelButtonLevelOptinAllowAll');
-
-      await page.waitForSelector('.frame_movelist_tabs__b_QlQ > li', {visible: true});
       
-      await Promise.all([
-        page.waitForNavigation(),
-        page.click('.frame_movelist_tabs__b_QlQ > li'), // trigger a navigation
-      ]);
+      await page.waitForSelector('#CybotCookiebotDialogBodyLevelButtonLevelOptinAllowAll', {visible: true});
+      await page.click('#CybotCookiebotDialogBodyLevelButtonLevelOptinAllowAll');
+      
+      // console.log(await page.waitForSelector('div.frame_movelist_tabs_box__Bh5Q4 > div >>> li'));
+
+      await page.waitForSelector('.frame_movelist_active__gNWMA', {visible: true});
+      await page.click('.frame_movelist_active__gNWMA  + li');
+
+
+      // await Promise.all([
+      //   page.waitForNavigation(),
+      // ]);
       
       await page.waitForSelector('.frame_modern__BJwQe', {visible: true});
       
