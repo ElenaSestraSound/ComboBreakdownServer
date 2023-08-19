@@ -1,0 +1,21 @@
+const characterAbbreviations = {
+  rashid: 'k',
+  cammy: 'w',
+  lily: 'A',
+  zangief: 'L',
+  jp: 'S',
+  marisa: 'C',
+  manon: 'E',
+  deejay: 'R',
+  ehonda: 'M',
+  dhalsim: 'K',
+  blanka: 'H',
+  ken: 'N',
+  juri: 'D',
+  kimberly: 'O',
+  guile: 'U',
+  chunli: 'F',
+  jamie: 'T',
+  luke: 'V',
+  ryu: 'Y'
+};
