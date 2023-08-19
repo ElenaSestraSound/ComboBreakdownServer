@@ -56,12 +56,6 @@ function getModernControls() {
   const getText = (element) => {
     if (!element) return [];
     if (element.childNodes.length === 0) return [element.textContent];
-    let content = [];
-    // element.childNodes.forEach(child => {
-    //   const childTexts = getText(child);
-    //   content = content.concat(childTexts);
-    // });
-    // return content;
   };
 
   const getImages = (element) => {
@@ -72,9 +66,6 @@ function getModernControls() {
         const imageContent = handleImage(child);
         if (imageContent.length) {
           images.push(...imageContent);
-        } else {
-          const childImages = getImages(child);
-          images = images.concat(childImages);
         }
       }
     });
@@ -111,13 +102,27 @@ function getModernControls() {
     const result = {}
 
     const modernMoves = () => {
-      const images = getImages(row.children[0]);
+      const images = getImages(row.children[0].children[1]);
       const resultString = replaceWithAbbreviation(images).join('');
       return resultString === "" ? 'NO INPUT' : resultString;
     }
 
+    const manualMoves = () => {
+      if (!row || !row.children[0] || !row.children[0].children[1]) {
+          return '';
+      }
+      const spanElement = row.children[0].children[1].querySelector('span');
+      if (!spanElement) {
+          return '';
+      }
+      const images = getImages(spanElement);
+      const resultString = replaceWithAbbreviation(images).join('');
+      return resultString === '' ? '' : resultString;
+    }
+  
     result.name = row.children[0].children[0].textContent
     result.modern = modernMoves();
+    result.manual = manualMoves();
 
     if (result.name && !moveTypes.includes(result.name.trim())) {
       results.push(result);
@@ -134,7 +139,7 @@ function getModernControls() {
   let characterName = segments[3];
 
   char.name = characterName;
-  char.modern = results;
+  char.moves = results;
   return char;
 
 }
