@@ -6,7 +6,11 @@ import { getCommandPageData } from './commandListPage/commandScrape.mjs'
 import { getModernControls } from './frameDataPage/scrapeModern.mjs';
 
 const baseUrl = 'https://www.streetfighter.com/6/character/';
-c
+
+const characterUrlNames = [
+  'rashid', 'cammy', 'lily', 'zangief', 'jp', 'marisa', 'manon', 'deejay', 'ehonda',
+  'dhalsim', 'blanka', 'ken', 'juri', 'kimberly', 'guile', 'chunli', 'jamie', 'luke', 'ryu'
+];
 
 const charactersUrlObject = characterUrlNames.reduce((obj, character) => {
   obj[character] = baseUrl + character;
