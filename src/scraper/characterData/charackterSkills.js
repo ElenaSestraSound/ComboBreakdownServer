@@ -4,6 +4,16 @@ const transformData = (data) => {
       skills: []
   };
 
+  const filterInvalidValues = (obj) => {
+    const pattern = /^\[t\]\d+$/;
+
+    return Object.fromEntries(
+        Object.entries(obj).filter(([_, value]) => !pattern.test(value))
+    );
+    }
+
+    data = filterInvalidValues(data);
+
   for (let key in data) {
 
       const match = key.match(/\[t\](skill_.*?_)(.*?)_(\d{3})/);
@@ -12,6 +22,7 @@ const transformData = (data) => {
           const type = match[1];
           const character = match[2];
           const id = match[3];
+
 
           if (type === "skill_name_") {
               result.skills.push({
@@ -23,9 +34,11 @@ const transformData = (data) => {
               if (skill) {
                   skill.description = data[key];
               }
+            }
+
+
           }
       }
-  }
   result.name = 'Kpt Blaubaer';
 
   return result;
