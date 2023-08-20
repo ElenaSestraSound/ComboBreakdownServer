@@ -1,5 +1,5 @@
 import express, { Router } from 'express';
-import { getAllCharacters, getOneCharacterByName, getCharacterListWithoutMoves } from './controller/_dbController';
+// import { getAllCharacters, getOneCharacterByName, getCharacterListWithoutMoves } from './controller/_dbController';
 import { getAllCharacterData, postSpecificCharacterData } from './controller/scrapeController';
 
 const router: Router = express.Router();

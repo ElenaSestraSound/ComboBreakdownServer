@@ -1,7 +1,6 @@
-function getCommandPageData() {
+function getCommandPageData () {
 
   const container = document.querySelectorAll('#Movelist > div.movelist_movelistarea__Y5Ucu > ul > li');
-  const movieContainer = document.querySelectorAll('#MovelistVideo > div.movelist_video_inner__q2Yvq');
   
   const results = []
 

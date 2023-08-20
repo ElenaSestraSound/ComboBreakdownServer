@@ -1,4 +1,4 @@
-function formatMove(data) {
+function formatMove (data) {
 
   if (
     !data.name || typeof data.name !== "string" ||

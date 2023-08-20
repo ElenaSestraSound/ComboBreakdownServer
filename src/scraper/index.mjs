@@ -167,7 +167,7 @@ const getScrapeData = async () => {
       characterObject.vitality = frameData.vitality;
     }
 
-    // // process command list page, get value for driveGauge
+    // // process command list, get value for driveGauge
 
     await page.goto(charactersUrlObject[character] + '/movelist');
     const commandPageData = await processCommandListPage(charactersUrlObject[character] + '/movelist');
