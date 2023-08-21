@@ -1,5 +1,5 @@
 import { Request, Response, NextFunction } from 'express';
-// import { seedDatabase } from '../prisma/seed.mjs'
+import { seedDatabase } from '../prisma/seed.mjs'
 
 /* *** GET *** */
 /* execute the scraping mechanism and populate the database for the first time or empty the database and populate it again */

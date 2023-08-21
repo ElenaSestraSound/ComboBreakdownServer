@@ -3,7 +3,7 @@
     "target": "es2016", /* Set the JavaScript language version for emitted JavaScript and include compatible library declarations. */
     "experimentalDecorators": true, /* Enable experimental support for legacy experimental decorators. */
     "emitDecoratorMetadata": true, /* Emit design-type metadata for decorated declarations in source files. */
-    "module": "commonjs", /* Specify what module code is generated. */
+    "module": "CommonJS", /* Specify what module code is generated. */
     "rootDir": "./src", /* Specify the root folder within your source files. */
     "outDir": "./dist", /* Specify an output folder for all emitted files. */
     "allowJs": true, // allows JavaScript files to be imported inside your TypeScript files

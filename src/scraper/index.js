@@ -1,8 +1,8 @@
 import puppeteer from 'puppeteer';
-import { getCharacterStats } from './characterPage/characterScrape.mjs';
-import { getVitality } from './frameDataPage/vitalityValue.mjs'
-import { extractDataFromTable } from './frameDataPage/tableScrape.mjs';
-import { getCommandPageData } from './commandListPage/commandScrape.mjs'
+import { getCharacterStats } from './characterPage/characterScrape.js';
+import { getVitality } from './frameDataPage/vitalityValue.js'
+import { extractDataFromTable } from './frameDataPage/tableScrape.js';
+import { getCommandPageData } from './commandListPage/commandScrape.js'
 
 const baseUrl = 'https://www.streetfighter.com/6/character/';
 
