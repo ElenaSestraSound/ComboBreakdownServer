@@ -1,3 +1,6 @@
+import { rawSkillData } from './rawSkillData.js';
+import fs from 'fs';
+
 /* helper functions to format data */
 
 const filterInvalidValues = (obj) => {
@@ -34,17 +37,16 @@ const transformSkillData = (data) => {
       if (type === "skill_name_") {
           result.push({
               name: data[key],
-              skill_id: id
+              video: id
           });
       } else if (type === "skill_comment_") {
-          const skill = result.find(skill => skill['skill_id'] === id);
+          const skill = result.find(skill => skill['video'] === id);
           if (skill) {
-              skill.description = data[key];
+              skill.definition = data[key];
           }
         }
       }
     }
-  console.log(result);
   return result;
 }
 
@@ -54,9 +56,16 @@ function transformCharacterData(data) {
   return Object.entries(data).map(([characterName, skills]) => {
     return {
         name: filterPathString(characterName),
-        skills: Object.values(transformSkillData(skills))
+        moves: Object.values(transformSkillData(skills))
     };
   });
 }
+
+let data = await transformCharacterData(rawSkillData);
+fs.writeFile('output.json', JSON.stringify(data), (err) => {
+ if (err) throw err;
+});
+
+console.log(transformCharacterData(rawSkillData))
 
 export { transformCharacterData };

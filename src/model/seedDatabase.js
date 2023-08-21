@@ -1,6 +1,7 @@
 import { prisma } from '../prisma/client.js';
-import { formatMove } from '../scraper/helperFunctions/formatForDataBase.js';
+
 import { getScrapeData } from '../scraper/index.js';
+import { formatMove } from '../scraper/helperFunctions/formatForDataBase.js';
 
 function mapFormattedMovesData(rawData) {
   const data = rawData.map(element => formatMove(element));
@@ -32,6 +33,7 @@ function stringifyMovesProperty(characterArray) {
 
 
 async function processCharacter(character) {
+
   console.log(character);
   if (await checkIfCharacterExists(character.name)) {
     console.log(`Character with name ${character.name} already exists!`);
@@ -60,6 +62,7 @@ async function processCharacter(character) {
 
 async function seedDatabase(data) {
   const seedData = stringifyMovesProperty(data);
+
   try {
     for (const character of seedData) {
       await processCharacter(character);
