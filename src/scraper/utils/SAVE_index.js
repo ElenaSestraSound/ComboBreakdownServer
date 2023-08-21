@@ -5,7 +5,6 @@ import { extractDataFromTable } from './frameDataPage/tableScrape.js';
 import { getCommandPageData } from './commandListPage/commandScrape.js'
 
 const baseUrl = 'https://www.streetfighter.com/6/character/';
-// const paths = ['/movelist', '/frame'];
 
 const characterUrlNames = [
   'rashid', 'cammy', 'lily', 'zangief', 'jp', 'marisa', 'manon', 'deejay', 'ehonda',
@@ -17,6 +16,7 @@ const charactersUrlObject = characterUrlNames.reduce((obj, character) => {
   return obj;
 }, {});
 
+// const paths = ['/movelist', '/frame'];
 
 async function processCharacterPage(url) {
   
@@ -47,8 +47,74 @@ async function processFrameDataPage(url) {
     page.waitForNavigation({ waitUntil: 'networkidle0' }),
   ]);
 
+  
+  // async function handlePageActions(page) {
+  //   try {
+      
+  //     await page.waitForSelector('#CybotCookiebotDialogBodyLevelButtonLevelOptinAllowAll', {visible: true});
+  //     await page.click('#CybotCookiebotDialogBodyLevelButtonLevelOptinAllowAll');
+      
+  //     // console.log(await page.waitForSelector('div.frame_movelist_tabs_box__Bh5Q4 > div >>> li'));
+
+  //     await page.waitForSelector('.frame_movelist_active__gNWMA', {visible: true});
+  //     await page.click('.frame_movelist_active__gNWMA  + li');
+
+
+  //     // await Promise.all([
+  //     //   page.waitForNavigation(),
+  //     // ]);
+      
+  //     await page.waitForSelector('.frame_modern__BJwQe', {visible: true});
+      
+  //     const modern = await page.evaluate(`(${getModernControls.toString()})()`);
+  //     console.log(modern);
+
+  //   } catch (error) {
+  //     console.error("There was an error during page actions:", error);
+  //   }
+  // }
+  // await handlePageActions(page);
+
   const data = await page.evaluate(`(${extractDataFromTable.toString()})()`);
   const vitality = await page.evaluate(`(${getVitality.toString()})()`);
+
+  // page
+  //   .then(() => {
+  //       let element = document.querySelector('#CybotCookiebotDialogBodyLevelButtonLevelOptinAllowAll');
+  //   element.click()
+  //   })
+  //   .then(() => {
+  //     page.click('.frame_movelist_active__gNWMA', { clickCount: 1 })
+  //   })
+  //   .then(() => {
+  //     const modern = page.evaluate(`(${getModernControls.toString()})()`);
+  //   console.log(modern);
+  //   });
+
+
+
+  // await page.evaluate(() => {
+  //   let element = document.querySelector('.frame_movelist_active__gNWMA');
+  //   element.click();
+  // });
+  // await page.waitForTimeout(3000);
+//   const elementDetails = await page.evaluate(() => {
+//     const element = document.querySelector('.frame_movelist_active__gNWMA');
+//     if (element) {
+//         return element.outerHTML;
+//     }
+//     return null;
+// });
+// console.log(elementDetails);
+
+  // await page.evaluate(() => {
+  //     document.querySelector('.frame_movelist_tabs__b_QlQ').click();
+  // });
+  // await page.click('.frame_movelist_image__FrWZY', { clickCount: 1 });
+  // await page.click('.frame_movelist_active__gNWMA', { clickCount: 1 });
+
+  // const modern = await page.evaluate(`(${getModernControls.toString()})()`);
+  // console.log(modern);
 
   await browser.close();
   return {
@@ -71,7 +137,6 @@ async function processCommandListPage(url) {
   await browser.close();
   return data;
 }
-
 
 /* scrape function */
 
@@ -127,7 +192,10 @@ const getScrapeData = async () => {
 
   const characterArray = [...characterMap.values()];
 
+  // console.log(characterArray);
   return characterArray;
 };
+
+getScrapeData();
 
 export { getScrapeData };

@@ -1,5 +1,5 @@
 import express from 'express';
-import { getAllCharacterData, postSpecificCharacterData } from './controller/scrapeController';
+import { getAllCharacterData, postSpecificCharacterData } from './controller/scrapeController.js';
 
 const router = express.Router();
 

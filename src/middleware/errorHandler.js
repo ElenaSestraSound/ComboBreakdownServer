@@ -1,5 +1,3 @@
-import { Request, Response, NextFunction } from 'express';
-
 const ErrorHandler = (err, req, res, next) => {
     
     console.log("Middleware Error Handling");

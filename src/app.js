@@ -1,8 +1,8 @@
 import express from 'express';
 import cors from 'cors';
-import { ErrorHandler } from './middleware/errorHandler';
-import { router } from './router';
-import { prisma } from './prisma/client';
+import { ErrorHandler } from './middleware/errorHandler.js';
+import { router } from './router.js';
+import { prisma } from './prisma/client.js';
 
 const app = express();
 

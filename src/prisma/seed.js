@@ -74,6 +74,6 @@ async function seedDatabase(characterArray) {
   await prisma.$disconnect();
 }
 
-seedDatabase(seedData);
+// seedDatabase(seedData);
 
 export { seedDatabase };

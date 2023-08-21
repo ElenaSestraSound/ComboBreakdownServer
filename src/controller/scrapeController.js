@@ -1,12 +1,11 @@
-import { Request, Response, NextFunction } from 'express';
-import { seedDatabase } from '../prisma/seed'
+import { seedDatabase } from '../prisma/seed.js'
 
 /* *** GET *** */
 /* execute the scraping mechanism and populate the database for the first time or empty the database and populate it again */
 
 const getAllCharacterData = async (req, res, next) => {
   try {
-    await seedDatabase();
+    // await seedDatabase();
     res.status(200);
   } catch (err) {
     next(err);
