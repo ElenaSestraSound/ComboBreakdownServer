@@ -37,60 +37,6 @@ const seedData = stringifyMovesProperty(scrapeData);
 
 /* create characters */
 
-// import readline from 'readline';
-
-// function askQuestion(query) {
-//   const rl = readline.createInterface({
-//     input: process.stdin,
-//     output: process.stdout,
-//   });
-
-//   return new Promise(resolve => 
-//     rl.question(query, ans => {
-//       rl.close();
-//       resolve(ans);
-//     })
-//   );
-// }
-
-// async function run(character) {
-//   console.log(character);
-//   if (await checkIfCharacterExists(character.name)) {
-//     console.log(`Character with name ${character.name} already exists!`);
-    
-//     const answer = await askQuestion('Do you want to overwrite this character? (yes/no) ');
-//     if (answer.toLowerCase() !== 'yes') {
-//       console.log('Character not overwritten.');
-//       return;
-//     }
-
-//     await prisma.character.delete({
-//       where: { name: character.name }
-//     });
-//     console.log(`Character with name ${character.name} deleted.`);
-//   }
-
-//   const newChar = await prisma.character.create({
-//     data: {
-//       name: character.name,
-//       bio: character.bio,
-//       like: character.like,
-//       notlike: character.notlike,
-//       height: character.height,
-//       weight: character.weight,
-//       vitality: character.vitality,
-//       moves: {
-//         createMany: {
-//           data: character.moves
-//         }
-//       }
-//     }
-//   });
-//   console.log('Seeded:', newChar);
-// }
-
-///////////////////////
-
 async function run(character) {
   console.log(character);
   if (await checkIfCharacterExists(character.name)) {
