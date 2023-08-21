@@ -1,10 +1,13 @@
 import fs from 'fs';
 
 import puppeteer from 'puppeteer';
-import { getCharacterStats } from './characterPage/characterScrape.js';
-import { getVitality } from './frameDataPage/vitalityValue.js'
-import { extractDataFromTable } from './frameDataPage/tableScrape.js';
-import { getCommandPageData } from './commandListPage/commandScrape.js'
+import { processCharacterPage } from './characterPage/processCharacterPage.js';
+import { processCommandListPage } from './commandListPage/processCommandListPage.js';
+import { processFrameDataPage } from './frameDataPage/processFrameDataPage.js';
+// import { getCharacterStats } from './characterPage/characterScrape.js';
+// import { getVitality } from './frameDataPage/vitalityValue.js'
+// import { extractDataFromTable } from './frameDataPage/tableScrape.js';
+// import { getCommandPageData } from './commandListPage/commandScrape.js'
 
 import { movesModern } from '../scraper/characterData/movesModernManual.js';
 import { rawSkillData } from '../scraper/characterData/rawSkillData.js';
@@ -24,59 +27,59 @@ const charactersUrlObject = characterUrlNames.reduce((obj, character) => {
 }, {});
 
 
-async function processCharacterPage(url) {
+// async function processCharacterPage(url) {
   
-  console.log(`Processing ${url}`);
+//   console.log(`Processing ${url}`);
 
-  const browser = await puppeteer.launch({ headless: true, args: ['--no-sandbox'] });
-  const page = await browser.newPage();
-  await page.setUserAgent('Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/88.0.4324.190 Safari/537.36');
-  await page.goto(url);
+//   const browser = await puppeteer.launch({ headless: true, args: ['--no-sandbox'] });
+//   const page = await browser.newPage();
+//   await page.setUserAgent('Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/88.0.4324.190 Safari/537.36');
+//   await page.goto(url);
 
-  const data = await page.evaluate(`(${getCharacterStats.toString()})();`);
+//   const data = await page.evaluate(`(${getCharacterStats.toString()})();`);
 
-  await browser.close();
-  return data;
-}
+//   await browser.close();
+//   return data;
+// }
 
-async function processFrameDataPage(url) {
+// async function processFrameDataPage(url) {
   
-  console.log(`Processing ${url}`);
+//   console.log(`Processing ${url}`);
 
-  const browser = await puppeteer.launch({ headless: true, args: ['--no-sandbox'] });
+//   const browser = await puppeteer.launch({ headless: true, args: ['--no-sandbox'] });
 
-  const page = await browser.newPage();
-  await page.setUserAgent('Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/88.0.4324.190 Safari/537.36');
+//   const page = await browser.newPage();
+//   await page.setUserAgent('Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/88.0.4324.190 Safari/537.36');
   
-  await Promise.all([
-    page.goto(url),
-    page.waitForNavigation({ waitUntil: 'networkidle0' }),
-  ]);
+//   await Promise.all([
+//     page.goto(url),
+//     page.waitForNavigation({ waitUntil: 'networkidle0' }),
+//   ]);
 
-  const data = await page.evaluate(`(${extractDataFromTable.toString()})()`);
-  const vitality = await page.evaluate(`(${getVitality.toString()})()`);
+//   const data = await page.evaluate(`(${extractDataFromTable.toString()})()`);
+//   const vitality = await page.evaluate(`(${getVitality.toString()})()`);
 
-  await browser.close();
-  return {
-    data,
-    vitality
-  };
-}
+//   await browser.close();
+//   return {
+//     data,
+//     vitality
+//   };
+// }
 
-async function processCommandListPage(url) {
+// async function processCommandListPage(url) {
   
-  console.log(`Processing ${url}`);
+//   console.log(`Processing ${url}`);
 
-  const browser = await puppeteer.launch({ headless: true, args: ['--no-sandbox'] });
-  const page = await browser.newPage();
-  await page.setUserAgent('Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/88.0.4324.190 Safari/537.36');
-  await page.goto(url);
+//   const browser = await puppeteer.launch({ headless: true, args: ['--no-sandbox'] });
+//   const page = await browser.newPage();
+//   await page.setUserAgent('Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/88.0.4324.190 Safari/537.36');
+//   await page.goto(url);
 
-  const data = await page.evaluate(`(${getCommandPageData.toString()})();`);
+//   const data = await page.evaluate(`(${getCommandPageData.toString()})();`);
 
-  await browser.close();
-  return data;
-}
+//   await browser.close();
+//   return data;
+// }
 
 
 /* scrape function */

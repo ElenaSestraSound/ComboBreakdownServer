@@ -3,6 +3,8 @@ import { prisma } from '../prisma/client.js';
 import { getScrapeData } from '../scraper/index.js';
 import { formatMove } from '../scraper/helperFunctions/formatForDataBase.js';
 
+/* helper functions */
+
 function mapFormattedMovesData(rawData) {
   const data = rawData.map(element => formatMove(element));
   return data;
@@ -31,6 +33,7 @@ function stringifyMovesProperty(characterArray) {
   return data;
 }
 
+/* create one character */ 
 
 async function processCharacter(character) {
 
