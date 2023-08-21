@@ -28,7 +28,7 @@ model Move {
   modern                String?
   manual                String?
   note                  String?
-  driveGauge            Int?
+  driveGauge            String?
   video                 String?
   definition            String?
   startup               Int?
