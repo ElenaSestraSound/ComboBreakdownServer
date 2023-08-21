@@ -9,9 +9,9 @@ import { processFrameDataPage } from './frameDataPage/processFrameDataPage.js';
 // import { extractDataFromTable } from './frameDataPage/tableScrape.js';
 // import { getCommandPageData } from './commandListPage/commandScrape.js'
 
-import { movesModern } from '../scraper/characterData/movesModernManual.js';
-import { rawSkillData } from '../scraper/characterData/rawSkillData.js';
-import { transformCharacterData } from '../scraper/characterData/characterSkills.js';
+import { movesModern } from './characterSkillData/movesModernManual.js';
+import { rawSkillData } from './characterSkillData/rawSkillData.js';
+import { transformCharacterData } from './characterSkillData/characterSkills.js';
 
 const baseUrl = 'https://www.streetfighter.com/6/character/';
 // const paths = ['/movelist', '/frame'];
