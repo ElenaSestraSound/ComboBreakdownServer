@@ -1,8 +1,3 @@
-// import fs from 'fs';
-
-// import { rawSkillData } from "./rawSkillData.mjs";
-
-
 /* helper functions to format data */
 
 const filterInvalidValues = (obj) => {
@@ -65,12 +60,3 @@ function transformCharacterData(data) {
 }
 
 export { transformCharacterData };
-
-
-// const data = rawSkillData;
-
-// const output = JSON.stringify(transformCharacterData(data));
-
-// fs.writeFile('skillsFormated.js', output, (err) => {
-//   if (err) throw err;
-// });

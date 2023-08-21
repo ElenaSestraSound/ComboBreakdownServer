@@ -1,8 +1,6 @@
-import { PrismaClient } from '@prisma/client';
+import { prisma } from '../prisma/client.js';
 import { formatMove } from '../scraper/helperFunctions/formatForDataBase.js';
 import { getScrapeData } from '../scraper/index.js';
-
-const prisma = new PrismaClient();
 
 function mapFormattedMovesData(rawData) {
   const data = rawData.map(element => formatMove(element));
@@ -32,10 +30,8 @@ function stringifyMovesProperty(characterArray) {
   return data;
 }
 
-const scrapeData = await getScrapeData();
-const seedData = stringifyMovesProperty(scrapeData);
 
-async function run(character) {
+async function processCharacter(character) {
   console.log(character);
   if (await checkIfCharacterExists(character.name)) {
     console.log(`Character with name ${character.name} already exists!`);
@@ -62,18 +58,22 @@ async function run(character) {
 
 /* seed the database */
 
-async function seedDatabase(characterArray) {
-  for (const character of characterArray) {
-    try {
-      await run(character);
-    } catch (e) {
-      console.log(e);
-      process.exit(1);
+async function seedDatabase(data) {
+  const seedData = stringifyMovesProperty(data);
+  try {
+    for (const character of seedData) {
+      await processCharacter(character);
     }
+  } catch (e) {
+    console.log(e);
+    process.exit(1);
+  } finally {
+    await prisma.$disconnect();
   }
-  await prisma.$disconnect();
 }
 
-// seedDatabase(seedData);
+async function runScrapeAndSeed () {
+  seedDatabase(await getScrapeData());
+}
 
-export { seedDatabase };
+export { runScrapeAndSeed };
