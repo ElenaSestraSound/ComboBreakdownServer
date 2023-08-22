@@ -135,18 +135,29 @@ function extractDataFromTable() {
       modern: ''
     }
   
+    /* *** type *** */
     const typeFunction = (styleIndex) => {
       const styles = ['normal', 'unique', 'special', 'super', 'throw', 'common'];
       return styles[styleIndex];
     }
     result.type = typeFunction(styleIndex);
   
+    /* *** note *** */
     const noteFunction = () => {
-      const text = getText(row.children[0].children[1]);
-      return (text[0] || '').trim();
+      const textArray = getText(row.children[0].children[1]);
+      const text = textArray.join(' ');
+      const regex = /\(([^)]+)\)/;
+      const match = text.match(regex);
+      if (match && match[1]) {
+        console.log(match[1])
+          return match[1];
+      } else {
+          return '';
+      }
     }
     result.note = noteFunction();
-    
+
+    /* *** classic moves *** */
     const classicMoves = () => {
       const images = getImages(row.children[0]);
       const resultString = replaceWithAbbreviation(images).join('');
@@ -154,10 +165,10 @@ function extractDataFromTable() {
     }
     result.classic = classicMoves();
   
+    ///// MAP /////
     mapping.forEach(map => {
       const element = row.children[map.index];
       const text = getText(element);
-      console.log(text)
       /* *** name *** */
       if (map.index === 0) {
         if (text.length > 1) {
@@ -203,6 +214,6 @@ function extractDataFromTable() {
 
 };
 
-// extractDataFromTable()
+extractDataFromTable()
 
-export { extractDataFromTable };
+// export { extractDataFromTable };
