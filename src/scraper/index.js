@@ -66,8 +66,7 @@ const getScrapeData = async () => {
     }
     
     await page.close();
-    
-    break;
+
   }
   
   await browser.close();

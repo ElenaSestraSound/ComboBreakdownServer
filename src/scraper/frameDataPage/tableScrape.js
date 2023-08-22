@@ -186,5 +186,4 @@ function extractDataFromTable() {
 
 };
 
-extractDataFromTable()
-// export { extractDataFromTable };
+export { extractDataFromTable };
