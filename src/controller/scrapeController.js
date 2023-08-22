@@ -1,12 +1,11 @@
-import { Request, Response, NextFunction } from 'express';
-// import { seedDatabase } from '../prisma/seed.mjs'
+import { runScrapeAndSeed } from "../model/seedDatabase.js";
 
 /* *** GET *** */
 /* execute the scraping mechanism and populate the database for the first time or empty the database and populate it again */
 
-const getAllCharacterData = async (req: Request, res: Response, next: NextFunction) => {
+const getAllCharacterData = async (req, res, next) => {
   try {
-    // await seedDatabase();
+    await runScrapeAndSeed();
     res.status(200);
   } catch (err) {
     next(err);
@@ -16,7 +15,7 @@ const getAllCharacterData = async (req: Request, res: Response, next: NextFuncti
 /* *** POST *** */
 /* execute the scraping mechanism and update the database for a certain URL (character). */
 
-const postSpecificCharacterData = async (req: Request, res: Response, next: NextFunction) => {
+const postSpecificCharacterData = async (req, res, next) => {
   try {
 
     const characterName = req.params.name;
