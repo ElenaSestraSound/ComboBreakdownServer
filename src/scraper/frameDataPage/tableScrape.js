@@ -53,16 +53,30 @@ function extractDataFromTable() {
 
   /* helper functions to get content */
 
+  // const getText = (element) => {
+  //   if (!element) return [];
+  //   let content = [];
+  //   content.push(element.textContent.trim());
+  //   for (let i = 0; i < element.children.length; i++) {
+  //       const child = element.children[i];
+  //       const childTexts = getText(child);
+  //       content.push(...childTexts);
+  //   }
+  //   return content;
+  // };
+
   const getText = (element) => {
     if (!element) return [];
     let content = [];
-    content.push(element.textContent.trim());
-    for (let i = 0; i < element.children.length; i++) {
-        const child = element.children[i];
-        const childTexts = getText(child);
-        content.push(...childTexts);
+    if (element.textContent && element.textContent.trim()) {
+      content.push(element.textContent.trim());
     }
-    return content;
+    for (let i = 0; i < element.children.length; i++) {
+      const child = element.children[i];
+      const childTexts = getText(child);
+      content.push(...childTexts);
+    }
+    return [...new Set(content)];
   };
 
   const getImages = (element) => {
@@ -157,12 +171,20 @@ function extractDataFromTable() {
     mapping.forEach(map => {
       const element = row.children[map.index];
       const text = getText(element);
+      /* *** miscellaneus *** */
       if (map.index === 14) {
-        result[map.property] = text.join('');
+        result[map.property] = text.join(' ');
+      /* *** damage *** */
       } else if (map.index === 7) {
         result[map.property] = text.slice(0,1).join('');
+      /* *** scaling *** */
       } else if (map.index === 8) {
-        result[map.property] = text.join(',');
+        if (text.length > 1) {
+          result[map.property] = text.join(',')
+        } else {
+          result[map.property] = text[0] || '';
+        }
+      /* *** active *** */
       } else if (map.index === 2) {
         if (text.length > 1) {
           let content = text.slice(2, text.length)
@@ -171,7 +193,7 @@ function extractDataFromTable() {
           result[map.property] = text[0] || '';
         }
       } else {
-        result[map.property] = text[0];
+        result[map.property] = text[0] || '';
       }
     });
   
