@@ -55,16 +55,16 @@ function extractDataFromTable() {
 
   const getText = (element) => {
     if (!element) return [];
-    if (element.children.length === 0) return [element.textContent];
     let content = [];
+    content.push(element.textContent.trim());
     for (let i = 0; i < element.children.length; i++) {
-      const child = element.children[i];
-      const childTexts = getText(child);
-      content.push(...childTexts);
+        const child = element.children[i];
+        const childTexts = getText(child);
+        content.push(...childTexts);
     }
     return content;
   };
-  
+
   const getImages = (element) => {
     if (!element) return [];
     let images = [];
@@ -142,8 +142,8 @@ function extractDataFromTable() {
     result.type = typeFunction(styleIndex);
   
     const noteFunction = () => {
-      const texts = getText(row.children[0]);
-      return (texts[1] || '').trim();
+      const text = getText(row.children[0].children[1]);
+      return (text[0] || '').trim();
     }
     result.note = noteFunction();
     
@@ -159,18 +159,19 @@ function extractDataFromTable() {
       const text = getText(element);
       if (map.index === 14) {
         result[map.property] = text.join('');
+      } else if (map.index === 7) {
+        result[map.property] = text.slice(0,1).join('');
       } else if (map.index === 8) {
         result[map.property] = text.join(',');
       } else if (map.index === 2) {
         if (text.length > 1) {
           let content = text.slice(2, text.length)
           result[map.property] = content.join(',')
-          console.log(result.active)
         } else {
           result[map.property] = text[0] || '';
         }
       } else {
-        result[map.property] = text[0] || '';
+        result[map.property] = text[0];
       }
     });
   
@@ -186,4 +187,6 @@ function extractDataFromTable() {
 
 };
 
-export { extractDataFromTable };
+extractDataFromTable()
+
+// export { extractDataFromTable };
