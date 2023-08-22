@@ -55,12 +55,13 @@ function extractDataFromTable() {
 
   const getText = (element) => {
     if (!element) return [];
-    if (element.childNodes.length === 0) return [element.textContent];
+    if (element.children.length === 0) return [element.textContent];
     let content = [];
-    element.childNodes.forEach(child => {
+    for (let i = 0; i < element.children.length; i++) {
+      const child = element.children[i];
       const childTexts = getText(child);
-      content = content.concat(childTexts);
-    });
+      content.push(...childTexts);
+    }
     return content;
   };
   
@@ -161,8 +162,13 @@ function extractDataFromTable() {
       } else if (map.index === 8) {
         result[map.property] = text.join(',');
       } else if (map.index === 2) {
-        const firstNonEmptyIndex = text.findIndex(item => item.trim() !== '');
-        result[map.property] = firstNonEmptyIndex !== -1 ? text.slice(firstNonEmptyIndex + 1).join(' ') : '';
+        if (text.length > 1) {
+          let content = text.slice(2, text.length)
+          result[map.property] = content.join(',')
+          console.log(result.active)
+        } else {
+          result[map.property] = text[0] || '';
+        }
       } else {
         result[map.property] = text[0] || '';
       }
@@ -180,4 +186,5 @@ function extractDataFromTable() {
 
 };
 
-export { extractDataFromTable };
+extractDataFromTable()
+// export { extractDataFromTable };
