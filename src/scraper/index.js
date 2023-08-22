@@ -1,13 +1,7 @@
-import fs from 'fs';
-
 import puppeteer from 'puppeteer';
 import { processCharacterPage } from './characterPage/processCharacterPage.js';
 import { processCommandListPage } from './commandListPage/processCommandListPage.js';
 import { processFrameDataPage } from './frameDataPage/processFrameDataPage.js';
-// import { getCharacterStats } from './characterPage/characterScrape.js';
-// import { getVitality } from './frameDataPage/vitalityValue.js'
-// import { extractDataFromTable } from './frameDataPage/tableScrape.js';
-// import { getCommandPageData } from './commandListPage/commandScrape.js'
 
 import { movesModern } from './skillData/movesModernManual.js';
 import { rawSkillData } from './skillData/rawSkillData.js';
@@ -25,62 +19,6 @@ const charactersUrlObject = characterUrlNames.reduce((obj, character) => {
   obj[character] = baseUrl + character;
   return obj;
 }, {});
-
-
-// async function processCharacterPage(url) {
-  
-//   console.log(`Processing ${url}`);
-
-//   const browser = await puppeteer.launch({ headless: true, args: ['--no-sandbox'] });
-//   const page = await browser.newPage();
-//   await page.setUserAgent('Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/88.0.4324.190 Safari/537.36');
-//   await page.goto(url);
-
-//   const data = await page.evaluate(`(${getCharacterStats.toString()})();`);
-
-//   await browser.close();
-//   return data;
-// }
-
-// async function processFrameDataPage(url) {
-  
-//   console.log(`Processing ${url}`);
-
-//   const browser = await puppeteer.launch({ headless: true, args: ['--no-sandbox'] });
-
-//   const page = await browser.newPage();
-//   await page.setUserAgent('Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/88.0.4324.190 Safari/537.36');
-  
-//   await Promise.all([
-//     page.goto(url),
-//     page.waitForNavigation({ waitUntil: 'networkidle0' }),
-//   ]);
-
-//   const data = await page.evaluate(`(${extractDataFromTable.toString()})()`);
-//   const vitality = await page.evaluate(`(${getVitality.toString()})()`);
-
-//   await browser.close();
-//   return {
-//     data,
-//     vitality
-//   };
-// }
-
-// async function processCommandListPage(url) {
-  
-//   console.log(`Processing ${url}`);
-
-//   const browser = await puppeteer.launch({ headless: true, args: ['--no-sandbox'] });
-//   const page = await browser.newPage();
-//   await page.setUserAgent('Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/88.0.4324.190 Safari/537.36');
-//   await page.goto(url);
-
-//   const data = await page.evaluate(`(${getCommandPageData.toString()})();`);
-
-//   await browser.close();
-//   return data;
-// }
-
 
 /* scrape function */
 
@@ -134,40 +72,12 @@ const getScrapeData = async () => {
   
   await browser.close();
 
-  // include data from local storage
+  // merge data from local storage
 
    const characterModernMoves = movesModern;
    const characterSpecialSkills = transformCharacterData(rawSkillData);
 
-//   function mergeMoves(arrays) {
-//     let result = [];
-
-//     for (const array of arrays) {
-//         for (const character of array) {
-//             let characterObj = result.find(item => item.name === character.name);
-//             if (characterObj) {
-//                 for (const move of character.moves) {
-//                     let existingMove = characterObj.moves.find(m => m.name === move.name);
-//                     if (existingMove) {
-//                         Object.assign(existingMove, move);
-//                     } else {
-//                         characterObj.moves.push(move);
-//                     }
-//                 }
-//             } else {
-//                 result.push(character);
-//             }
-//         }
-//     }
-//     return result;
-// }
-
-
   const characterArray = [...characterMap.values()];
-
-  // const result = mergeMoves([characterArray, characterModernMoves, characterSpecialSkills]);
-  // console.log(result);
-
 
   function mergeCharacterMoves(...dataArrays) {
     let result = [];
@@ -195,42 +105,10 @@ const getScrapeData = async () => {
   return result;
   }
 
-    // let mergedCharacters = [];
-  
-    // arrays.forEach(array => {
-    //     array.forEach(character => {
-    //         if (!mergedCharacters[character.name]) {
-    //             mergedCharacters[character.name] = { 
-    //                 name: character.name, 
-    //                 moves: [] 
-    //             };
-    //         }
-    //         character.moves.forEach(move => {
-    //             const existingMove = mergedCharacters[character.name].moves.find(m => m.name === move.name);
-    //             if (existingMove) {
-    //                 Object.assign(existingMove, move);
-    //             } else {
-    //                 mergedCharacters[character.name].moves.push({...move});
-    //             }
-    //         });
-    //     });
-    // });
-  
-    // return mergedCharacters = [];
-  
-  const Character = mergeCharacterMoves(characterArray, characterModernMoves, characterSpecialSkills);
-  // console.log(Character);
-  return Character;
+  const scrapedData = mergeCharacterMoves(characterArray, characterModernMoves, characterSpecialSkills);
 
+  return scrapedData;
 
-  // console.log(characterArray);
-  // return characterArray;
-  
 };
-
-let data = await getScrapeData();
-fs.writeFile('output.json', JSON.stringify(data), (err) => {
- if (err) throw err;
-});
 
 export { getScrapeData };

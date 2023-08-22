@@ -1,11 +1,11 @@
-// import { runScrapeAndSeed } from "../model/seedDatabase.js";
+import { runScrapeAndSeed } from "../model/seedDatabase.js";
 
 /* *** GET *** */
 /* execute the scraping mechanism and populate the database for the first time or empty the database and populate it again */
 
 const getAllCharacterData = async (req, res, next) => {
   try {
-    // await runScrapeAndSeed();
+    await runScrapeAndSeed();
     res.status(200);
   } catch (err) {
     next(err);
