@@ -53,11 +53,6 @@ function getModernControls() {
 
   /* helper functions to get content */
 
-  const getText = (element) => {
-    if (!element) return [];
-    if (element.childNodes.length === 0) return [element.textContent];
-  };
-
   const getImages = (element) => {
     if (!element) return [];
     let images = [];

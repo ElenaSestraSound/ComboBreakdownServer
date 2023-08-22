@@ -22,7 +22,7 @@ const charactersUrlObject = characterUrlNames.reduce((obj, character) => {
   return obj;
 }, {});
 
-/* scrape function */
+///// SCRAPE FUNCTION /////
 
 const getScrapeData = async () => {
 
@@ -47,6 +47,7 @@ const getScrapeData = async () => {
   
     if(characterMap.has(character)) {
       const characterObject = characterMap.get(character);
+      
       characterObject.moves = frameData.data;
       characterObject.vitality = frameData.vitality;
     }
@@ -59,6 +60,7 @@ const getScrapeData = async () => {
     if (characterMap.has(character)) {
       const characterObject = characterMap.get(character);
       
+      characterObject.moves 
       commandPageData.forEach(commandMove => {
           const foundMove = characterObject.moves.find(move => move.name === commandMove.name);
           if (foundMove) {
@@ -80,18 +82,22 @@ break;
 
   const characterArray = [...characterMap.values()];
 
+  ///// MERGE /////
   function mergeCharacterMoves(...dataArrays) {
     let result = [];
+
     for (let i = 0; i < dataArrays.length; i++) {
       let characterArray = dataArrays[i];
+
       for (let j = 0; j < characterArray.length; j++) {
         let character = characterArray[j];
         let existingCharacter = result.find(ch => ch.name === character.name);
         if (!existingCharacter) {
           result.push(character);
         } else {
+
           for (let k = 0; k < character.moves.length; k++) {
-            let move = character.moves[k];  // Corrected this line
+            let move = character.moves[k];  
             let existingMove = existingCharacter.moves.find(m => m.name === move.name);
 
             if (!existingMove) {
