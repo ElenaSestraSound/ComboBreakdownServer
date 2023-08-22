@@ -51,6 +51,7 @@ function extractDataFromTable() {
   
   let styleIndex = -1;
 
+  /* get text content */
   const getText = (element) => {
     if (!element) return [];
     let content = [];
@@ -65,6 +66,7 @@ function extractDataFromTable() {
     return [...new Set(content)];
   };
 
+  /* get images */
   const getImages = (element) => {
     if (!element) return [];
     let images = [];
@@ -105,7 +107,7 @@ function extractDataFromTable() {
     });
   };
 
-  /* main function to traverse the table */
+  ///// main function to traverse the table /////
   
   rows.forEach(row => {
   
@@ -149,7 +151,6 @@ function extractDataFromTable() {
       const regex = /\(([^)]+)\)/;
       const match = text.match(regex);
       if (match && match[1]) {
-        console.log(match[1])
           return match[1];
       } else {
           return '';
@@ -176,9 +177,6 @@ function extractDataFromTable() {
         } else {
           result[map.property] = text[0];
         }
-      /* *** miscellaneus *** */
-      } else if (map.index === 14) {
-        result[map.property] = text.join(' ');
       /* *** damage *** */
       } else if (map.index === 7) {
         result[map.property] = text.slice(0,1).join('');
@@ -202,6 +200,7 @@ function extractDataFromTable() {
       }
     });
   
+    /* only push table rows with data, take care of move types */
     if (result.name && !moveTypes.includes(result.name.trim())) {
       results.push(result);
     } else {
