@@ -1,3 +1,5 @@
+import fs from 'fs';
+
 import puppeteer from 'puppeteer';
 import { processCharacterPage } from './characterPage/processCharacterPage.js';
 import { processCommandListPage } from './commandListPage/processCommandListPage.js';
@@ -66,7 +68,7 @@ const getScrapeData = async () => {
     }
     
     await page.close();
-
+break;
   }
   
   await browser.close();
@@ -109,5 +111,10 @@ const getScrapeData = async () => {
   return scrapedData;
 
 };
+
+let data = await getScrapeData();
+fs.writeFile('output.json', JSON.stringify(data), (err) => {
+ if (err) throw err;
+});
 
 export { getScrapeData };

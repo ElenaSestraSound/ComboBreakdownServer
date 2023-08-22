@@ -1,5 +1,5 @@
-// import { rawSkillData } from './rawSkillData.js';
-// import fs from 'fs';
+import { rawSkillData } from './rawSkillData.js';
+import fs from 'fs';
 
 /* helper functions to format data */
 
@@ -46,7 +46,7 @@ const transformSkillData = (data) => {
               video: generateVideoUrl(character, id)
           });
       } else if (type === "skill_comment_") {
-          const skill = result.find(skill => skill['video'] === id);
+          const skill = result.find(skill => skill['video'] === generateVideoUrl(character, id));
           if (skill) {
               skill.definition = data[key];
           }
@@ -67,11 +67,11 @@ function transformCharacterData(data) {
   });
 }
 
-// let data = await transformCharacterData(rawSkillData);
-// fs.writeFile('output.json', JSON.stringify(data), (err) => {
-//  if (err) throw err;
-// });
+let data = await transformCharacterData(rawSkillData);
+fs.writeFile('output.json', JSON.stringify(data), (err) => {
+ if (err) throw err;
+});
 
-// console.log(transformCharacterData(rawSkillData))
+console.log(transformCharacterData(rawSkillData))
 
 export { transformCharacterData };
