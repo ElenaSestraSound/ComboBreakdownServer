@@ -157,8 +157,16 @@ function extractDataFromTable() {
     mapping.forEach(map => {
       const element = row.children[map.index];
       const text = getText(element);
+      console.log(text)
+      /* *** name *** */
+      if (map.index === 0) {
+        if (text.length > 1) {
+          result[map.property] = text[1];
+        } else {
+          result[map.property] = text[0];
+        }
       /* *** miscellaneus *** */
-      if (map.index === 14) {
+      } else if (map.index === 14) {
         result[map.property] = text.join(' ');
       /* *** damage *** */
       } else if (map.index === 7) {
