@@ -69,11 +69,11 @@ function transformCharacterData(data) {
   });
 }
 
-let data = await transformCharacterData(rawSkillData);
-fs.writeFile('output.json', JSON.stringify(data), (err) => {
- if (err) throw err;
-});
+// let data = await transformCharacterData(rawSkillData);
+// fs.writeFile('output.json', JSON.stringify(data), (err) => {
+//  if (err) throw err;
+// });
 
-console.log(transformCharacterData(rawSkillData))
+// console.log(transformCharacterData(rawSkillData))
 
 export { transformCharacterData };

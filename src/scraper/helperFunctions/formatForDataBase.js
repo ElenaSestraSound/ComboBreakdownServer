@@ -9,13 +9,13 @@ function formatMove (data) {
   }
 
   const formattedMove = {
-    name: data.name,
-    type: data.type,
+    name: JSON.stringify(data.name) || 'default',
+    type: JSON.stringify(data.type) || 'default',
     note: data.note || null,
     driveGauge: data.driveGauge || null,
     video: data.video || null,
     definition: data.definition || null,
-    classic: data.classic,
+    classic: JSON.stringify(data.classic) || 'default',
     modern: data.modern || null,
     manual: data.manual || null,
     startup: parseInt(data.startup, 10) || null,

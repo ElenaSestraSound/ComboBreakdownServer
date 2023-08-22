@@ -138,6 +138,6 @@ function getModernControls() {
   return char;
 
 }
-getModernControls();
+// getModernControls();
 
-// export { getModernControls };
+export { getModernControls };

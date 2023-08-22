@@ -68,9 +68,9 @@ const getScrapeData = async () => {
           }
       });
     }
-    
+    break;
     await page.close();
-break;
+
   }
   
   await browser.close();
@@ -118,9 +118,9 @@ break;
 
 };
 
-let data = await getScrapeData();
-fs.writeFile('output.json', JSON.stringify(data), (err) => {
- if (err) throw err;
-});
+// let data = await getScrapeData();
+// // fs.writeFile('output.json', JSON.stringify(data), (err) => {
+// //  if (err) throw err;
+// // });
 
 export { getScrapeData };
