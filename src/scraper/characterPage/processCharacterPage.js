@@ -1,3 +1,4 @@
+import puppeteer from 'puppeteer';
 import { getCharacterStats } from './characterScrape.js';
 
 

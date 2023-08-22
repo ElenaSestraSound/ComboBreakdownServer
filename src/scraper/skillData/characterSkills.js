@@ -1,5 +1,5 @@
-import { rawSkillData } from './rawSkillData.js';
-import fs from 'fs';
+// import { rawSkillData } from './rawSkillData.js';
+// import fs from 'fs';
 
 /* helper functions to format data */
 
@@ -21,13 +21,9 @@ const filterPathString = (string) => {
 };
 
 function generateVideoUrl(name, videoId) {
-  if (!videoId) {
-      return null;
-  }
   const baseURL = "https://www.streetfighter.com/6/assets/images/character/";
   return `${baseURL}${name}/skill/movie/${videoId}.mp4`;
 };
-
 
 /* refactor skills/moves data */
 
@@ -71,11 +67,11 @@ function transformCharacterData(data) {
   });
 }
 
-let data = await transformCharacterData(rawSkillData);
-fs.writeFile('output.json', JSON.stringify(data), (err) => {
- if (err) throw err;
-});
+// let data = await transformCharacterData(rawSkillData);
+// fs.writeFile('output.json', JSON.stringify(data), (err) => {
+//  if (err) throw err;
+// });
 
-console.log(transformCharacterData(rawSkillData))
+// console.log(transformCharacterData(rawSkillData))
 
 export { transformCharacterData };

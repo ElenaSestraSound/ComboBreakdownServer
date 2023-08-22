@@ -1,5 +1,7 @@
-import { getVitality } from './vitalityValue.js'
+import puppeteer from 'puppeteer';
+import { getVitality } from './vitalityValue.js';
 import { extractDataFromTable } from './tableScrape.js';
+
 
 async function processFrameDataPage(url) {
   
@@ -24,5 +26,6 @@ async function processFrameDataPage(url) {
     vitality
   };
 };
+
 
 export { processFrameDataPage };
