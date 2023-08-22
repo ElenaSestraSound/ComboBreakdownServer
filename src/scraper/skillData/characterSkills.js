@@ -72,6 +72,6 @@ fs.writeFile('output.json', JSON.stringify(data), (err) => {
  if (err) throw err;
 });
 
-console.log(transformCharacterData(rawSkillData))
+transformCharacterData()
 
 export { transformCharacterData };
