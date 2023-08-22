@@ -54,20 +54,20 @@ const getScrapeData = async () => {
 
     // process command list, get value for driveGauge
 
-    await page.goto(charactersUrlObject[character] + '/movelist');
-    const commandPageData = await processCommandListPage(charactersUrlObject[character] + '/movelist');
+    // await page.goto(charactersUrlObject[character] + '/movelist');
+    // const commandPageData = await processCommandListPage(charactersUrlObject[character] + '/movelist');
     
-    if (characterMap.has(character)) {
-      const characterObject = characterMap.get(character);
+    // if (characterMap.has(character)) {
+    //   const characterObject = characterMap.get(character);
       
-      characterObject.moves 
-      commandPageData.forEach(commandMove => {
-          const foundMove = characterObject.moves.find(move => move.name === commandMove.name);
-          if (foundMove) {
-              foundMove.driveGauge = commandMove.driveGauge;
-          }
-      });
-    }
+    //   characterObject.moves 
+    //   commandPageData.forEach(commandMove => {
+    //       const foundMove = characterObject.moves.find(move => move.name === commandMove.name);
+    //       if (foundMove) {
+    //           foundMove.driveGauge = commandMove.driveGauge;
+    //       }
+    //   });
+    // }
     break;
     await page.close();
 
