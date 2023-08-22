@@ -106,7 +106,7 @@ break;
   return result;
   }
 
-  const scrapedData = mergeCharacterMoves(characterArray, characterModernMoves, characterSpecialSkills);
+  const scrapedData = mergeCharacterMoves(characterArray, characterModernMoves);
 
   return scrapedData;
 

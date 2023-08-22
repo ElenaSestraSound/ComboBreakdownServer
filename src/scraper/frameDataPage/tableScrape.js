@@ -51,20 +51,6 @@ function extractDataFromTable() {
   
   let styleIndex = -1;
 
-  /* helper functions to get content */
-
-  // const getText = (element) => {
-  //   if (!element) return [];
-  //   let content = [];
-  //   content.push(element.textContent.trim());
-  //   for (let i = 0; i < element.children.length; i++) {
-  //       const child = element.children[i];
-  //       const childTexts = getText(child);
-  //       content.push(...childTexts);
-  //   }
-  //   return content;
-  // };
-
   const getText = (element) => {
     if (!element) return [];
     let content = [];
@@ -209,6 +195,6 @@ function extractDataFromTable() {
 
 };
 
-extractDataFromTable()
+// extractDataFromTable()
 
-// export { extractDataFromTable };
+export { extractDataFromTable };
