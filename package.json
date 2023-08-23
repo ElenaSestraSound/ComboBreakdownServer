@@ -8,7 +8,7 @@
     "node": "18"
   },
   "scripts": {
-    "start": "cd src && prisma init && npx prisma generate && node index.js",
+    "start": "node src/index.js",
     "test": "NODE_ENV=test jest --detectOpenHandles",
     "dev": "node src/index.js"
   },
@@ -17,6 +17,7 @@
   "license": "ISC",
   "devDependencies": {
     "@babel/core": "^7.22.10",
+    "@flydotio/dockerfile": "^0.4.8",
     "@jest/globals": "^29.6.2",
     "babel-jest": "^29.6.2",
     "babel-preset-env": "^1.7.0",
