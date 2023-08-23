@@ -4,8 +4,11 @@
   "description": "",
   "main": "server.js",
   "type": "module",
+  "engines": {
+    "node": "18"
+  },
   "scripts": {
-    "start": "node src/server.js",
+    "start": "cd src && npx prisma generate && node server.js",
     "test": "NODE_ENV=test jest --detectOpenHandles"
   },
   "keywords": [],
