@@ -25,7 +25,11 @@ const loginAdmin = async (req, res, next) => {
     /* TEMPLATE */
 
     // Dummy data
-    const users = [{ email: "vincent@vincentlab.net", password: "$2b$15$zqY2Q4eOoGzFpZkHJz9HS.BSfXc/HM2E/yTWa1awFmTMgN2bE72Uu", roles: ["admin", "editor", "viewer"] }];
+    const users = [{
+      email: "vincent@vincentlab.net",
+      password: "$2b$15$zqY2Q4eOoGzFpZkHJz9HS.BSfXc/HM2E/yTWa1awFmTMgN2bE72Uu",
+      roles: ["admin", "editor", "viewer"]
+    }];
 
     // Get to user from the database, if the user is not there return error
     let user = users.find(u => u.email === req.body.email);
@@ -38,7 +42,7 @@ const loginAdmin = async (req, res, next) => {
     const token = jwt.sign({
         id: user._id,
         roles: user.roles,
-    }, "jwtPrivateKey", { expiresIn: "30m" });
+    }, "jwtPrivateKey", { expiresIn: "15m" });
 
     res.send({
         ok: true,

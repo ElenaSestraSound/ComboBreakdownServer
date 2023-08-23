@@ -1,6 +1,6 @@
 import express from 'express';
 import { getAllCharacterData, postSpecificCharacterData } from './controller/scrapeController.js';
-import { loginAdmin, passwordAdmin } from './controller/authController.js';
+import { loginAdmin, passwordAdmin } from './authentication/authController.js';
 
 const router = express.Router();
 
