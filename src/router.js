@@ -9,7 +9,7 @@ router.post('/scrape/:name', postSpecificCharacterData);
 
 /* dummy route */
 router.get('/', (req, res) => {
-  res.status(200).send('<h1>Server is online!</h1>');
+  res.status(200).send('<h1>Server is online!!!!!!</h1>');
 });
 
 export { router };
