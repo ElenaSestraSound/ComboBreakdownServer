@@ -13,4 +13,9 @@ router.post('/auth/admin/login', ensureToken, loginAdmin);
 router.get('/scrape/all', ensureToken, getAllCharacterData);
 router.post('/scrape/:name', ensureToken, postSpecificCharacterData);
 
+/* dummy route */
+router.get('/', (req, res) => {
+  res.status(200).send('<h1>Server is online!!!!!!</h1>');
+});
+
 export { router };

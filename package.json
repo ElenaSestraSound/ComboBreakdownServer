@@ -2,18 +2,22 @@
   "name": "combobreakdownserver",
   "version": "1.0.0",
   "description": "",
-  "main": "server.js",
+  "main": "index.js",
   "type": "module",
+  "engines": {
+    "node": "18"
+  },
   "scripts": {
-    "devStart": "nodemon src/server.js",
-    "start": "node src/server.js",
-    "test": "NODE_ENV=test jest --detectOpenHandles"
+    "start": "node src/index.js",
+    "test": "NODE_ENV=test jest --detectOpenHandles",
+    "dev": "node src/index.js"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "devDependencies": {
     "@babel/core": "^7.22.10",
+    "@flydotio/dockerfile": "^0.4.8",
     "@jest/globals": "^29.6.2",
     "babel-jest": "^29.6.2",
     "babel-preset-env": "^1.7.0",

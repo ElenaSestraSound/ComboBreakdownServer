@@ -1,9 +1,9 @@
 import puppeteer from 'puppeteer';
 import { processCharacterPage } from './characterPage/processCharacterPage.js';
-import { processCommandListPage } from './commandListPage/processCommandListPage.js';
 import { processFrameDataPage } from './frameDataPage/processFrameDataPage.js';
 
 import { movesModern } from './skillData/movesModernManual.js';
+import { driveGaugeValues } from './commandListPage/driveGaugeValues.js';
 import { rawSkillData } from './skillData/rawSkillData.js';
 import { transformCharacterData } from './skillData/characterSkills.js';
 
@@ -50,21 +50,6 @@ const getScrapeData = async () => {
       characterObject.vitality = frameData.vitality;
     }
 
-    /* *** process command list, get value for driveGauge *** */
-
-    // await page.goto(charactersUrlObject[character] + '/movelist');
-  
-    // click on the cookie consent button
-    // await page.waitForSelector('#CybotCookiebotDialogBodyLevelButtonLevelOptinAllowAll', {visible: true});
-    // await page.click('#CybotCookiebotDialogBodyLevelButtonLevelOptinAllowAll');
-      
-    // let element = await page.$('#CybotCookiebotDialogBodyLevelButtonLevelOptinAllowAll');
-    // await element.click();
-  
-    // Process the command list page
-    // const commandPageData = await processCommandListPage(charactersUrlObject[character] + '/movelist');
-    // console.log(commandPageData)
-
     await page.close();
 
   }
@@ -73,80 +58,43 @@ const getScrapeData = async () => {
 
   // merge data from local storage
 
+  const driveGaugeProperty = driveGaugeValues;
    const characterModernMoves = movesModern;
    const characterSpecialSkills = transformCharacterData(rawSkillData);
 
   const characterArray = [...characterMap.values()];
 
   ///// MERGE /////
-  // function mergeCharacterMoves(...dataArrays) {
-  //   let result = [];
-
-  //   for (let i = 0; i < dataArrays.length; i++) {
-  //     let characterArray = dataArrays[i];
-
-  //     for (let j = 0; j < characterArray.length; j++) {
-  //       let character = characterArray[j];
-  //       let existingCharacter = result.find(ch => ch.name === character.name);
-  //       if (!existingCharacter) {
-  //         result.push(character);
-  //       } else {
-
-  //         for (let k = 0; k < character.moves.length; k++) {
-  //           let move = character.moves[k];  
-  //           let existingMove = existingCharacter.moves.find(m => m.name === move.name);
-
-  //           if (!existingMove) {
-  //               existingCharacter.moves.push(move);
-  //           } else {
-  //               Object.assign(existingMove, move);
-  //           }
-  //         }
-  //       }
-  //     }
-  //   }
-  // return result;
-  // }
-
-  /* helper functions to merge all data */
-  
-  function findCharacter(array, name) {
-    return array.find(ch => ch.name === name);
-  }
-
-  function findMove(movesArray, moveName) {
-    return movesArray.find(m => m.name === moveName);
-  }
-
-  function mergeMoves(existingCharacter, newCharacter) {
-    for (let move of newCharacter.moves) {
-      let existingMove = findMove(existingCharacter.moves, move.name);
-      if (!existingMove) {
-        existingCharacter.moves.push(move);
-      } else {
-        Object.assign(existingMove, move);
-      }
-    }
-  }
-
-  ///// MERGE /////
-
   function mergeCharacterMoves(...dataArrays) {
     let result = [];
-    for (let characterArray of dataArrays) {
-      for (let character of characterArray) {
-        let existingCharacter = findCharacter(result, character.name);
+
+    for (let i = 0; i < dataArrays.length; i++) {
+      let characterArray = dataArrays[i];
+
+      for (let j = 0; j < characterArray.length; j++) {
+        let character = characterArray[j];
+        let existingCharacter = result.find(ch => ch.name === character.name);
         if (!existingCharacter) {
           result.push(character);
         } else {
-          mergeMoves(existingCharacter, character);
+
+          for (let k = 0; k < character.moves.length; k++) {
+            let move = character.moves[k];  
+            let existingMove = existingCharacter.moves.find(m => m.name === move.name);
+
+            if (!existingMove) {
+                existingCharacter.moves.push(move);
+            } else {
+                Object.assign(existingMove, move);
+            }
+          }
         }
       }
     }
     return result;
   }
 
-  const scrapedData = mergeCharacterMoves(characterArray, characterModernMoves, characterSpecialSkills);
+  const scrapedData = mergeCharacterMoves(characterArray, characterModernMoves, driveGaugeProperty, characterSpecialSkills);
 
   return scrapedData;
 
