@@ -24,6 +24,7 @@ Show a spinner while the script is running (ideal)
 When the script finish, return 201 ok message
 
 ## GET /admin
+>router.get('/auth/admin', passwordAdmin);
 
 Returns a login form with only a password field
 
@@ -32,5 +33,6 @@ When you are already logged in redirects to /scrape
 The form does a POST request to /admin
 
 ## POST /admin
+>router.post('/auth/admin', loginAdmin);
 
 Logs in the admin user

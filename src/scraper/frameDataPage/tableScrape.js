@@ -213,5 +213,5 @@ function extractDataFromTable() {
 
 };
 
-extractDataFromTable()
-// export { extractDataFromTable };
+// extractDataFromTable()
+export { extractDataFromTable };
