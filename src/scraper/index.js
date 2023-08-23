@@ -33,14 +33,14 @@ const getScrapeData = async () => {
 
     const page = await browser.newPage();
   
-    // process character details
+    /* *** process character details *** */
 
     await page.goto(charactersUrlObject[character]);
     const characterData = await processCharacterPage(charactersUrlObject[character]);
 
     characterMap.set(characterData.name, characterData);
     
-    // process frame data
+    /* *** process frame data *** */
 
     await page.goto(charactersUrlObject[character] + '/frame');
     const frameData = await processFrameDataPage(charactersUrlObject[character] + '/frame');
@@ -52,13 +52,16 @@ const getScrapeData = async () => {
       characterObject.vitality = frameData.vitality;
     }
 
-    // process command list, get value for driveGauge
+    /* *** process command list, get value for driveGauge *** */
 
     await page.goto(charactersUrlObject[character] + '/movelist');
   
     // click on the cookie consent button
-    let element = await page.$('#CybotCookiebotDialogBodyLevelButtonLevelOptinAllowAll');
-    await element.click();
+    // await page.waitForSelector('#CybotCookiebotDialogBodyLevelButtonLevelOptinAllowAll', {visible: true});
+    // await page.click('#CybotCookiebotDialogBodyLevelButtonLevelOptinAllowAll');
+      
+    // let element = await page.$('#CybotCookiebotDialogBodyLevelButtonLevelOptinAllowAll');
+    // await element.click();
   
     // Process the command list page
     const commandPageData = await processCommandListPage(charactersUrlObject[character] + '/movelist');
