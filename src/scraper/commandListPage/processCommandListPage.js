@@ -1,10 +1,6 @@
-import fs from 'fs';
-
-
 import puppeteer from 'puppeteer';
 import { getCommandPageData } from './commandScrape.js'
 
-const url = 'https://www.streetfighter.com/6/character/rashid/movelist';
 
 async function processCommandListPage(url) {
   
@@ -32,11 +28,5 @@ async function processCommandListPage(url) {
   return data;
 }
 
-
-const data = await processCommandListPage(url);
-console.log(data);
-fs.writeFile('output.json', JSON.stringify(data), (err) => {
- if (err) throw err;
-});
 
 export { processCommandListPage }

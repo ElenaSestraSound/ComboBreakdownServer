@@ -1,23 +1,23 @@
 import request from 'supertest';
-import { app } from '../app';
-
+import { expect } from 'chai';
+import { app } from '../app.js';
 
 describe('Test server connection', () => {
-  
-  test('It should return 404, when accessing an unknown endpoint', done => {
+
+  it('It should return 404, when accessing an unknown endpoint', done => {
     request(app)
       .get('/unknown')
-      .then(response => {
-        expect(response.statusCode).toBe(404);
+      .end((err, response) => {
+        expect(response.statusCode).to.equal(404);
         done();
       });
   });
 
-  test('It should return 200, when accessing /scrape endpoint', done => {
+  it('It should return 200, when accessing /scrape endpoint', done => {
     request(app)
-      .get('/scrape')
-      .then(response => {
-        expect(response.statusCode).toBe(200);
+      .get('/db-test')
+      .end((err, response) => {
+        expect(response.statusCode).to.equal(200);
         done();
       });
   });

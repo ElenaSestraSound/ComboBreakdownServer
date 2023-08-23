@@ -111,6 +111,4 @@ const getScrapeData = async () => {
 
 };
 
-console.log(getScrapeData())
-
 export { getScrapeData };

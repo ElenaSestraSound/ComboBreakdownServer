@@ -10,8 +10,8 @@ router.get('/auth/admin', ensureToken, passwordAdmin);
 router.post('/auth/admin/login', ensureToken, loginAdmin);
 
 /* scraping routes */
-router.get('/scrape/all', ensureToken, getAllCharacterData);
-router.post('/scrape/:name', ensureToken, postSpecificCharacterData);
+router.get('/scrape/all', getAllCharacterData);
+router.post('/scrape/:name', postSpecificCharacterData);
 
 /* dummy route */
 router.get('/', (req, res) => {

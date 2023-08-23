@@ -1,4 +1,5 @@
 import express from 'express';
+import logger from 'morgan';
 import cors from 'cors';
 import { ErrorHandler } from './middleware/errorHandler.js';
 import { router } from './router.js';
@@ -7,7 +8,9 @@ import { prisma } from './prisma/client.js';
 const app = express();
 
 app.use(cors());
+app.use(logger('dev'));
 app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 app.use(router);
 
 // test
