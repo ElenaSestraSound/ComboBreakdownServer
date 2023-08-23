@@ -59,8 +59,8 @@ const getScrapeData = async () => {
   // merge data from local storage
 
   const driveGaugeProperty = driveGaugeValues;
-   const characterModernMoves = movesModern;
-   const characterSpecialSkills = transformCharacterData(rawSkillData);
+  const characterModernMoves = movesModern;
+  const characterSpecialSkills = transformCharacterData(rawSkillData);
 
   const characterArray = [...characterMap.values()];
 
