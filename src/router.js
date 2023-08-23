@@ -8,7 +8,7 @@ router.get('/scrape/all', getAllCharacterData);
 router.post('/scrape/:name', postSpecificCharacterData);
 
 /* dummy route */
-router.get('/dummy', (req, res) => {
+router.get('/', (req, res) => {
   res.status(200).send('<h1>Server is online!</h1>');
 });
 
