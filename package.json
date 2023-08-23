@@ -8,7 +8,7 @@
     "node": "18"
   },
   "scripts": {
-    "start": "cd src && npx prisma generate && node server.js",
+    "start": "cd src && npx prisma generate && node index.js",
     "test": "NODE_ENV=test jest --detectOpenHandles"
   },
   "keywords": [],
