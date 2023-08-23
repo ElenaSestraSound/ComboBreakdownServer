@@ -2,10 +2,10 @@ import fs from 'fs';
 
 import puppeteer from 'puppeteer';
 import { processCharacterPage } from './characterPage/processCharacterPage.js';
-import { processCommandListPage } from './commandListPage/processCommandListPage.js';
 import { processFrameDataPage } from './frameDataPage/processFrameDataPage.js';
 
 import { movesModern } from './skillData/movesModernManual.js';
+import { driveGaugeValues } from './commandListPage/driveGaugeValues.js';
 import { rawSkillData } from './skillData/rawSkillData.js';
 import { transformCharacterData } from './skillData/characterSkills.js';
 
@@ -52,34 +52,6 @@ const getScrapeData = async () => {
       characterObject.vitality = frameData.vitality;
     }
 
-    /* *** process command list, get value for driveGauge *** */
-
-    // await page.goto(charactersUrlObject[character] + '/movelist');
-  
-    // click on the cookie consent button
-    // await page.waitForSelector('#CybotCookiebotDialogBodyLevelButtonLevelOptinAllowAll', {visible: true});
-    // await page.click('#CybotCookiebotDialogBodyLevelButtonLevelOptinAllowAll');
-      
-    // let element = await page.$('#CybotCookiebotDialogBodyLevelButtonLevelOptinAllowAll');
-    // await element.click();
-  
-    // Process the command list page
-    // const commandPageData = await processCommandListPage(charactersUrlObject[character] + '/movelist');
-    // console.log(commandPageData)
-
-    
-    // if (characterMap.has(character)) {
-    //   const characterObject = characterMap.get(character);
-      
-    //   characterObject.moves 
-    //   commandPageData.forEach(commandMove => {
-    //       const foundMove = characterObject.moves.find(move => move.name === commandMove.name);
-    //       if (foundMove) {
-    //           foundMove.driveGauge = commandMove.driveGauge;
-    //       }
-    //   });
-    // }
-
     await page.close();
 
   }
@@ -88,6 +60,7 @@ const getScrapeData = async () => {
 
   // merge data from local storage
 
+  const driveGaugeProperty = driveGaugeValues;
    const characterModernMoves = movesModern;
    const characterSpecialSkills = transformCharacterData(rawSkillData);
 
@@ -123,30 +96,10 @@ const getScrapeData = async () => {
   return result;
   }
 
-  const scrapedData = mergeCharacterMoves(characterArray, characterModernMoves, characterSpecialSkills);
+  const scrapedData = mergeCharacterMoves(characterArray, characterModernMoves, driveGaugeProperty, characterSpecialSkills);
 
   return scrapedData;
 
 };
 
-// let data = await getScrapeData();
-// fs.writeFile('output.json', JSON.stringify(data), (err) => {
-//  if (err) throw err;
-// });
-
 export { getScrapeData };
-
-
-
-  // page
-  //   .then(() => {
-  //       let element = document.querySelector('#CybotCookiebotDialogBodyLevelButtonLevelOptinAllowAll');
-  //   element.click()
-  //   })
-  //   .then(() => {
-  //     page.click('.frame_movelist_active__gNWMA', { clickCount: 1 })
-  //   })
-  //   .then(() => {
-  //     const modern = page.evaluate(`(${getModernControls.toString()})()`);
-  //   console.log(modern);
-  //   });

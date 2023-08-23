@@ -1,5 +1,6 @@
 import fs from 'fs';
 
+
 import puppeteer from 'puppeteer';
 import { getCommandPageData } from './commandScrape.js'
 

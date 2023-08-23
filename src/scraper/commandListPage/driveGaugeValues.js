@@ -1,4 +1,4 @@
-export const driveGaugeValue = [{
+export const driveGaugeValues = [{
   "name": "rashid",
   "moves": [{
       "name": "Spinning Mixer",

@@ -1,13 +1,5 @@
 function formatMove (data) {
 
-  // if (
-  //   !data.name || typeof data.name !== "string" ||
-  //   !data.type || typeof data.type !== "string" ||
-  //   !data.classic || typeof data.classic !== "string"
-  // ) {
-  //   throw new Error("Invalid or missing required fields (name, type, classic).");
-  // }
-
   const formattedMove = {
     name: data.name,
     type: data.type || 'default',
