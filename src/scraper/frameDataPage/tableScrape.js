@@ -1,4 +1,4 @@
-function extractDataFromTable() {
+function extractDataFromTable () {
 
   const filenameAbbreviations = {
     'arrow_3.png': '_',
@@ -44,11 +44,11 @@ function extractDataFromTable() {
     'Throws',
     'Common Moves'
   ];
-  
+
   const rows = document.querySelectorAll('#framearea > div > table > tbody > tr');
-  
+
   const results = [];
-  
+
   let styleIndex = -1;
 
   /* get text content */
@@ -91,7 +91,7 @@ function extractDataFromTable() {
     const match = url.match(regexSelectImgFileName);
     return match ? match[0] : null;
   };
-  
+
   const handleImage = (element) => {
     if (element.tagName.toLowerCase() === 'img' && element.src) {
       const filename = extractFileName(element.src);
@@ -99,7 +99,7 @@ function extractDataFromTable() {
     }
     return [];
   };
-  
+
   const replaceWithAbbreviation = (arrayOfFilenames) => {
     return arrayOfFilenames.map(filename => {
       if (!filename) return filename;
@@ -108,9 +108,9 @@ function extractDataFromTable() {
   };
 
   ///// main function to traverse the table /////
-  
+
   rows.forEach(row => {
-  
+
     const mapping = [
       { index: 0, property: 'name' },
       { index: 1, property: 'startup' },
@@ -128,22 +128,22 @@ function extractDataFromTable() {
       { index: 13, property: 'properties' },
       { index: 14, property: 'miscellaneous' }
     ];
-  
+
     const result = {
       driveGauge: '',
       video: '',
       definition: '',
       manual: '',
       modern: ''
-    }
-  
+    };
+
     /* *** type *** */
     const typeFunction = (styleIndex) => {
       const styles = ['normal', 'unique', 'special', 'super', 'throw', 'common'];
       return styles[styleIndex];
-    }
+    };
     result.type = typeFunction(styleIndex);
-  
+
     /* *** note *** */
     const noteFunction = () => {
       const textArray = getText(row.children[0].children[1]);
@@ -151,11 +151,11 @@ function extractDataFromTable() {
       const regex = /\(([^)]+)\)/;
       const match = text.match(regex);
       if (match && match[1]) {
-          return match[1];
+        return match[1];
       } else {
-          return '';
+        return '';
       }
-    }
+    };
     result.note = noteFunction();
 
     /* *** classic moves *** */
@@ -163,9 +163,9 @@ function extractDataFromTable() {
       const images = getImages(row.children[0]);
       const resultString = replaceWithAbbreviation(images).join('');
       return resultString === "" ? 'NO INPUT' : resultString;
-    }
+    };
     result.classic = classicMoves();
-  
+
     ///// MAP /////
     mapping.forEach(map => {
       const element = row.children[map.index];
@@ -177,21 +177,21 @@ function extractDataFromTable() {
         } else {
           result[map.property] = text[0];
         }
-      /* *** damage *** */
+        /* *** damage *** */
       } else if (map.index === 7) {
-        result[map.property] = text.slice(0,1).join('');
-      /* *** scaling *** */
+        result[map.property] = text.slice(0, 1).join('');
+        /* *** scaling *** */
       } else if (map.index === 8) {
         if (text.length > 1) {
-          result[map.property] = text.join(',')
+          result[map.property] = text.join(',');
         } else {
           result[map.property] = text[0] || '';
         }
-      /* *** active *** */
+        /* *** active *** */
       } else if (map.index === 2) {
         if (text.length > 1) {
-          let content = text.slice(2, text.length)
-          result[map.property] = content.join(',')
+          let content = text.slice(2, text.length);
+          result[map.property] = content.join(',');
         } else {
           result[map.property] = text[0] || '';
         }
@@ -199,19 +199,19 @@ function extractDataFromTable() {
         result[map.property] = text[0] || '';
       }
     });
-  
+
     /* only push table rows with data, take care of move types */
     if (result.name && !moveTypes.includes(result.name.trim())) {
       results.push(result);
     } else {
       styleIndex++;
     }
-  
+
   });
-  
+
   return results;
 
 };
 
-extractDataFromTable()
-// export { extractDataFromTable };
+// extractDataFromTable();
+export { extractDataFromTable };
