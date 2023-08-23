@@ -2,14 +2,15 @@
   "name": "combobreakdownserver",
   "version": "1.0.0",
   "description": "",
-  "main": "server.js",
+  "main": "index.js",
   "type": "module",
   "engines": {
     "node": "18"
   },
   "scripts": {
-    "start": "cd src && npx prisma generate && node server.js",
-    "test": "NODE_ENV=test jest --detectOpenHandles"
+    "start": "cd src && prisma init && npx prisma generate && node index.js",
+    "test": "NODE_ENV=test jest --detectOpenHandles",
+    "dev": "node src/index.js"
   },
   "keywords": [],
   "author": "",
