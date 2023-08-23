@@ -52,6 +52,11 @@ const getScrapeData = async () => {
       characterObject.vitality = frameData.vitality;
     }
 
+    
+    /* scrape command list page currently not working */
+    //
+    //
+
     /* *** process command list, get value for driveGauge *** */
 
     // await page.goto(charactersUrlObject[character] + '/movelist');
@@ -67,18 +72,10 @@ const getScrapeData = async () => {
     // const commandPageData = await processCommandListPage(charactersUrlObject[character] + '/movelist');
     // console.log(commandPageData)
 
-    
-    // if (characterMap.has(character)) {
-    //   const characterObject = characterMap.get(character);
-      
-    //   characterObject.moves 
-    //   commandPageData.forEach(commandMove => {
-    //       const foundMove = characterObject.moves.find(move => move.name === commandMove.name);
-    //       if (foundMove) {
-    //           foundMove.driveGauge = commandMove.driveGauge;
-    //       }
-    //   });
-    // }
+    //
+    //
+    /*scrape command list page currently not working */
+
 
     await page.close();
 
@@ -129,24 +126,4 @@ const getScrapeData = async () => {
 
 };
 
-// let data = await getScrapeData();
-// fs.writeFile('output.json', JSON.stringify(data), (err) => {
-//  if (err) throw err;
-// });
-
 export { getScrapeData };
-
-
-
-  // page
-  //   .then(() => {
-  //       let element = document.querySelector('#CybotCookiebotDialogBodyLevelButtonLevelOptinAllowAll');
-  //   element.click()
-  //   })
-  //   .then(() => {
-  //     page.click('.frame_movelist_active__gNWMA', { clickCount: 1 })
-  //   })
-  //   .then(() => {
-  //     const modern = page.evaluate(`(${getModernControls.toString()})()`);
-  //   console.log(modern);
-  //   });
