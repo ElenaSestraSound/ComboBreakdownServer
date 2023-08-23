@@ -1,5 +1,3 @@
-import fs from 'fs';
-
 import puppeteer from 'puppeteer';
 import { processCharacterPage } from './characterPage/processCharacterPage.js';
 import { processFrameDataPage } from './frameDataPage/processFrameDataPage.js';
