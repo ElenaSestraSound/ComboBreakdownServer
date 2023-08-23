@@ -1,6 +1,8 @@
-import jwt from "jsonwebtoken";
+import jwt, { JwtPayload } from 'jsonwebtoken';
+import dotenv from 'dotenv';
 import bcrypt from "bcrypt";
 
+const secretKey = process.env.JWT_SECRET 
 
 /* *** GET *** */
 /* Returns a login form with only a password field */
@@ -8,7 +10,7 @@ import bcrypt from "bcrypt";
 /* The form does a POST request to /admin */
 
 const passwordAdmin = async (req, res, next) => {
-  jwt.verify(req.token, 'my_secret_key', function(err, data) {
+  jwt.verify(req.token, secretKey, function(err, data) {
     if (err) {
       res.sendStatus(403);
     } else {
@@ -28,7 +30,7 @@ const loginAdmin = async (req, res, next) => {
   try {
 
     const user = { id: 3 };
-    const token = jwt.sign({ user }, 'my_secret_key');
+    const token = jwt.sign({ user }, secretKey);
     res.json({
       token: token
     })
