@@ -1,5 +1,8 @@
+<<<<<<< HEAD
 import fs from 'fs';
 
+=======
+>>>>>>> dev
 import puppeteer from 'puppeteer';
 import { processCharacterPage } from './characterPage/processCharacterPage.js';
 import { processCommandListPage } from './commandListPage/processCommandListPage.js';
