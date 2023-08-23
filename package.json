@@ -8,8 +8,9 @@
     "node": "18"
   },
   "scripts": {
-    "start": "cd src && npx prisma generate && node index.js",
-    "test": "NODE_ENV=test jest --detectOpenHandles"
+    "start": "cd src && prisma init && npx prisma generate && node index.js",
+    "test": "NODE_ENV=test jest --detectOpenHandles",
+    "dev": "node src/index.js"
   },
   "keywords": [],
   "author": "",
