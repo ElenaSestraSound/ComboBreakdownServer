@@ -50,11 +50,6 @@ const getScrapeData = async () => {
       characterObject.vitality = frameData.vitality;
     }
 
-    
-    /* scrape command list page currently not working */
-    //
-    //
-
     /* *** process command list, get value for driveGauge *** */
 
     // await page.goto(charactersUrlObject[character] + '/movelist');
@@ -69,11 +64,6 @@ const getScrapeData = async () => {
     // Process the command list page
     // const commandPageData = await processCommandListPage(charactersUrlObject[character] + '/movelist');
     // console.log(commandPageData)
-
-    //
-    //
-    /*scrape command list page currently not working */
-
 
     await page.close();
 
