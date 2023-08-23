@@ -8,13 +8,16 @@ import bcrypt from "bcrypt";
 /* The form does a POST request to /admin */
 
 const passwordAdmin = async (req, res, next) => {
-  try {
-    res.json({
-      text: 'Lummerland'
-    });
-  } catch (err) {
-    next(err);
-  }
+  jwt.verify(req.token, 'my_secret_key', function(err, data) {
+    if (err) {
+      res.sendStatus(403);
+    } else {
+      res.json({
+        text: 'this is protected',
+        data: data
+      });
+    }
+  });
 };
 
 
