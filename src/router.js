@@ -3,6 +3,10 @@ import { getAllCharacterData, postSpecificCharacterData } from './controller/scr
 
 const router = express.Router();
 
+/* authentication routes */
+router.get('/auth/admin');
+router.post('/auth/admin');
+
 /* scraping routes */
 router.get('/scrape/all', getAllCharacterData);
 router.post('/scrape/:name', postSpecificCharacterData);
