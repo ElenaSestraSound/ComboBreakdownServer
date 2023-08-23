@@ -21,6 +21,7 @@ async function processCommandListPage(url) {
 
   await page.waitForSelector('#CybotCookiebotDialogBodyLevelButtonLevelOptinAllowAll', {visible: true});
   await page.click('#CybotCookiebotDialogBodyLevelButtonLevelOptinAllowAll');
+  await page.waitForTimeout(1000)
 
   await page.waitForSelector('#Movelist > div.movelist_movelistarea__Y5Ucu > ul:nth-child(10) > li:nth-child(5) > div.movelist_movelist_drive__dN3Il > span > img', {visible: true});
 

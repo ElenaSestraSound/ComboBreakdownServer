@@ -54,7 +54,7 @@ const getScrapeData = async () => {
 
     /* *** process command list, get value for driveGauge *** */
 
-    await page.goto(charactersUrlObject[character] + '/movelist');
+    // await page.goto(charactersUrlObject[character] + '/movelist');
   
     // click on the cookie consent button
     // await page.waitForSelector('#CybotCookiebotDialogBodyLevelButtonLevelOptinAllowAll', {visible: true});
@@ -64,8 +64,8 @@ const getScrapeData = async () => {
     // await element.click();
   
     // Process the command list page
-    const commandPageData = await processCommandListPage(charactersUrlObject[character] + '/movelist');
-    console.log(commandPageData)
+    // const commandPageData = await processCommandListPage(charactersUrlObject[character] + '/movelist');
+    // console.log(commandPageData)
 
     
     // if (characterMap.has(character)) {
@@ -79,7 +79,7 @@ const getScrapeData = async () => {
     //       }
     //   });
     // }
-    break;
+
     await page.close();
 
   }
@@ -129,10 +129,10 @@ const getScrapeData = async () => {
 
 };
 
-let data = await getScrapeData();
-fs.writeFile('output.json', JSON.stringify(data), (err) => {
- if (err) throw err;
-});
+// let data = await getScrapeData();
+// fs.writeFile('output.json', JSON.stringify(data), (err) => {
+//  if (err) throw err;
+// });
 
 export { getScrapeData };
 
