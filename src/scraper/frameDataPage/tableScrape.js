@@ -108,7 +108,6 @@ function extractDataFromTable () {
   };
 
   ///// main function to traverse the table /////
-
   rows.forEach(row => {
 
     const mapping = [
@@ -143,7 +142,6 @@ function extractDataFromTable () {
       return styles[styleIndex];
     };
     result.type = typeFunction(styleIndex);
-
     /* *** note *** */
     const noteFunction = () => {
       const textArray = getText(row.children[0].children[1]);
@@ -165,7 +163,6 @@ function extractDataFromTable () {
       return resultString === "" ? 'NO INPUT' : resultString;
     };
     result.classic = classicMoves();
-
     ///// MAP /////
     mapping.forEach(map => {
       const element = row.children[map.index];
@@ -199,7 +196,6 @@ function extractDataFromTable () {
         result[map.property] = text[0] || '';
       }
     });
-
     /* only push table rows with data, take care of move types */
     if (result.name && !moveTypes.includes(result.name.trim())) {
       results.push(result);

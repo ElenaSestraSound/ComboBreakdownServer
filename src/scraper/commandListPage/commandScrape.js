@@ -9,13 +9,13 @@ function getCommandPageData () {
   const extractFileName = (url) => {
     const regexSelectImgFileName = /([^\/]+)$/;
     const match = url.match(regexSelectImgFileName);
-    return match ? match[0] : null;
+    return match ? match[1].toString() : null;
   };
   
   const handleImage = (element) => {
     if (element.tagName.toLowerCase() === 'img' && element.src) {
       const filename = extractFileName(element.src);
-      return filename ? [filename] : '';
+      return filename  ? [filename] : '';
     }
     return '';
   };
@@ -52,10 +52,16 @@ function getCommandPageData () {
     results.push({name, driveGauge});
   })
   
-  return results;
+  const char = {}
+
+  let url = window.location.pathname; 
+  let segments = url.split('/');
+  let characterName = segments[3];
+
+  char.name = characterName;
+  char.moves = results;
+  return char;
   
 };
-
-// getCommandPageData();
 
 export { getCommandPageData };

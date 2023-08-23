@@ -1,6 +1,3 @@
-import { rawSkillData } from './rawSkillData.js';
-import fs from 'fs';
-
 /* helper functions to format data */
 
 const filterInvalidValues = (obj) => {
@@ -68,12 +65,5 @@ function transformCharacterData(data) {
     };
   });
 }
-
-// let data = await transformCharacterData(rawSkillData);
-// fs.writeFile('output.json', JSON.stringify(data), (err) => {
-//  if (err) throw err;
-// });
-
-// console.log(transformCharacterData(rawSkillData))
 
 export { transformCharacterData };

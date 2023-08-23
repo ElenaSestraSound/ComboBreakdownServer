@@ -10,6 +10,11 @@ app.use(cors());
 app.use(express.json());
 app.use(router);
 
+// test
+app.get('/', (req, res) => {
+  res.send('Hello World!');
+});
+
 // test database connection
 app.get('/db-test', async (req, res) => {
   try {
