@@ -1,8 +1,8 @@
-import jwt, { JwtPayload } from 'jsonwebtoken';
+import jwt from 'jsonwebtoken';
 import dotenv from 'dotenv';
-import bcrypt from "bcrypt";
+// import bcrypt from "bcrypt";
 
-const secretKey = process.env.JWT_SECRET 
+const secretKey = process.env.JWT_SECRET_KEY
 
 /* *** GET *** */
 /* Returns a login form with only a password field */
@@ -29,7 +29,9 @@ const passwordAdmin = async (req, res, next) => {
 const loginAdmin = async (req, res, next) => {
   try {
 
-    const user = { id: 3 };
+    // Authenticate User
+    const username = req.body.username;
+    const user = { name: username };
     const token = jwt.sign({ user }, secretKey);
     res.json({
       token: token

@@ -5,6 +5,7 @@
   "main": "server.js",
   "type": "module",
   "scripts": {
+    "devStart": "nodemon src/server.js",
     "start": "node src/server.js",
     "test": "NODE_ENV=test jest --detectOpenHandles"
   },

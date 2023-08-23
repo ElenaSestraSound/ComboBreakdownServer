@@ -10,7 +10,7 @@ router.get('/auth/admin', ensureToken, passwordAdmin);
 router.post('/auth/admin/login', ensureToken, loginAdmin);
 
 /* scraping routes */
-router.get('/scrape/all', getAllCharacterData);
-router.post('/scrape/:name', postSpecificCharacterData);
+router.get('/scrape/all', ensureToken, getAllCharacterData);
+router.post('/scrape/:name', ensureToken, postSpecificCharacterData);
 
 export { router };
