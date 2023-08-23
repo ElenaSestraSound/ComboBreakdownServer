@@ -64,6 +64,6 @@ function getCommandPageData () {
   
 };
 
-getCommandPageData();
+// getCommandPageData();
 
 export { getCommandPageData };
