@@ -51,20 +51,22 @@ function extractDataFromTable() {
   
   let styleIndex = -1;
 
-  /* helper functions to get content */
-
+  /* get text content */
   const getText = (element) => {
     if (!element) return [];
-    if (element.children.length === 0) return [element.textContent];
     let content = [];
+    if (element.textContent && element.textContent.trim()) {
+      content.push(element.textContent.trim());
+    }
     for (let i = 0; i < element.children.length; i++) {
       const child = element.children[i];
       const childTexts = getText(child);
       content.push(...childTexts);
     }
-    return content;
+    return [...new Set(content)];
   };
-  
+
+  /* get images */
   const getImages = (element) => {
     if (!element) return [];
     let images = [];
@@ -105,7 +107,7 @@ function extractDataFromTable() {
     });
   };
 
-  /* main function to traverse the table */
+  ///// main function to traverse the table /////
   
   rows.forEach(row => {
   
@@ -135,18 +137,28 @@ function extractDataFromTable() {
       modern: ''
     }
   
+    /* *** type *** */
     const typeFunction = (styleIndex) => {
       const styles = ['normal', 'unique', 'special', 'super', 'throw', 'common'];
       return styles[styleIndex];
     }
     result.type = typeFunction(styleIndex);
   
+    /* *** note *** */
     const noteFunction = () => {
-      const texts = getText(row.children[0]);
-      return (texts[1] || '').trim();
+      const textArray = getText(row.children[0].children[1]);
+      const text = textArray.join(' ');
+      const regex = /\(([^)]+)\)/;
+      const match = text.match(regex);
+      if (match && match[1]) {
+          return match[1];
+      } else {
+          return '';
+      }
     }
     result.note = noteFunction();
-    
+
+    /* *** classic moves *** */
     const classicMoves = () => {
       const images = getImages(row.children[0]);
       const resultString = replaceWithAbbreviation(images).join('');
@@ -154,18 +166,32 @@ function extractDataFromTable() {
     }
     result.classic = classicMoves();
   
+    ///// MAP /////
     mapping.forEach(map => {
       const element = row.children[map.index];
       const text = getText(element);
-      if (map.index === 14) {
-        result[map.property] = text.join('');
+      /* *** name *** */
+      if (map.index === 0) {
+        if (text.length > 1) {
+          result[map.property] = text[1];
+        } else {
+          result[map.property] = text[0];
+        }
+      /* *** damage *** */
+      } else if (map.index === 7) {
+        result[map.property] = text.slice(0,1).join('');
+      /* *** scaling *** */
       } else if (map.index === 8) {
-        result[map.property] = text.join(',');
+        if (text.length > 1) {
+          result[map.property] = text.join(',')
+        } else {
+          result[map.property] = text[0] || '';
+        }
+      /* *** active *** */
       } else if (map.index === 2) {
         if (text.length > 1) {
           let content = text.slice(2, text.length)
           result[map.property] = content.join(',')
-          console.log(result.active)
         } else {
           result[map.property] = text[0] || '';
         }
@@ -174,6 +200,7 @@ function extractDataFromTable() {
       }
     });
   
+    /* only push table rows with data, take care of move types */
     if (result.name && !moveTypes.includes(result.name.trim())) {
       results.push(result);
     } else {

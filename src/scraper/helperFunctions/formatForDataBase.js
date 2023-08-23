@@ -1,21 +1,13 @@
 function formatMove (data) {
 
-  if (
-    !data.name || typeof data.name !== "string" ||
-    !data.type || typeof data.type !== "string" ||
-    !data.classic || typeof data.classic !== "string"
-  ) {
-    throw new Error("Invalid or missing required fields (name, type, classic).");
-  }
-
   const formattedMove = {
     name: data.name,
-    type: data.type,
+    type: data.type || 'default',
     note: data.note || null,
     driveGauge: data.driveGauge || null,
     video: data.video || null,
     definition: data.definition || null,
-    classic: data.classic,
+    classic: data.classic || 'default',
     modern: data.modern || null,
     manual: data.manual || null,
     startup: parseInt(data.startup, 10) || null,

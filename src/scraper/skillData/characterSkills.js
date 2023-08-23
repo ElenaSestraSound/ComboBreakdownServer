@@ -1,5 +1,5 @@
-// import { rawSkillData } from './rawSkillData.js';
-// import fs from 'fs';
+import { rawSkillData } from './rawSkillData.js';
+import fs from 'fs';
 
 /* helper functions to format data */
 
@@ -45,12 +45,14 @@ const transformSkillData = (data) => {
               name: data[key],
               video: generateVideoUrl(character, id)
           });
-      } else if (type === "skill_comment_") {
-          const skill = result.find(skill => skill['video'] === id);
-          if (skill) {
-              skill.definition = data[key];
-          }
+        } else if (type === "skill_comment_") {
+        const videoUrl = generateVideoUrl(character, id);
+        const skill = result.find(skill => skill.video === videoUrl);
+        if (skill) {
+            skill.definition = data[key];
         }
+      }
+    
       }
     }
   return result;

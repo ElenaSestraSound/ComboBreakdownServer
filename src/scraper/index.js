@@ -20,7 +20,7 @@ const charactersUrlObject = characterUrlNames.reduce((obj, character) => {
   return obj;
 }, {});
 
-/* scrape function */
+///// SCRAPE FUNCTION /////
 
 const getScrapeData = async () => {
 
@@ -31,43 +31,52 @@ const getScrapeData = async () => {
 
     const page = await browser.newPage();
   
-    // process character details
+    /* *** process character details *** */
 
     await page.goto(charactersUrlObject[character]);
     const characterData = await processCharacterPage(charactersUrlObject[character]);
 
     characterMap.set(characterData.name, characterData);
     
-    // process frame data
+    /* *** process frame data *** */
 
     await page.goto(charactersUrlObject[character] + '/frame');
     const frameData = await processFrameDataPage(charactersUrlObject[character] + '/frame');
   
     if(characterMap.has(character)) {
       const characterObject = characterMap.get(character);
+      
       characterObject.moves = frameData.data;
       characterObject.vitality = frameData.vitality;
     }
 
-    // process command list, get value for driveGauge
+    
+    /* scrape command list page currently not working */
+    //
+    //
 
-    await page.goto(charactersUrlObject[character] + '/movelist');
-    const commandPageData = await processCommandListPage(charactersUrlObject[character] + '/movelist');
-    
-    if (characterMap.has(character)) {
-      const characterObject = characterMap.get(character);
+    /* *** process command list, get value for driveGauge *** */
+
+    // await page.goto(charactersUrlObject[character] + '/movelist');
+  
+    // click on the cookie consent button
+    // await page.waitForSelector('#CybotCookiebotDialogBodyLevelButtonLevelOptinAllowAll', {visible: true});
+    // await page.click('#CybotCookiebotDialogBodyLevelButtonLevelOptinAllowAll');
       
-      commandPageData.forEach(commandMove => {
-          const foundMove = characterObject.moves.find(move => move.name === commandMove.name);
-          if (foundMove) {
-              foundMove.driveGauge = commandMove.driveGauge;
-          }
-      });
-    }
-    
+    // let element = await page.$('#CybotCookiebotDialogBodyLevelButtonLevelOptinAllowAll');
+    // await element.click();
+  
+    // Process the command list page
+    // const commandPageData = await processCommandListPage(charactersUrlObject[character] + '/movelist');
+    // console.log(commandPageData)
+
+    //
+    //
+    /*scrape command list page currently not working */
+
+
     await page.close();
-    
-    break;
+
   }
   
   await browser.close();
@@ -79,18 +88,22 @@ const getScrapeData = async () => {
 
   const characterArray = [...characterMap.values()];
 
+  ///// MERGE /////
   function mergeCharacterMoves(...dataArrays) {
     let result = [];
+
     for (let i = 0; i < dataArrays.length; i++) {
       let characterArray = dataArrays[i];
+
       for (let j = 0; j < characterArray.length; j++) {
         let character = characterArray[j];
         let existingCharacter = result.find(ch => ch.name === character.name);
         if (!existingCharacter) {
           result.push(character);
         } else {
+
           for (let k = 0; k < character.moves.length; k++) {
-            let move = character.moves[k];  // Corrected this line
+            let move = character.moves[k];  
             let existingMove = existingCharacter.moves.find(m => m.name === move.name);
 
             if (!existingMove) {
