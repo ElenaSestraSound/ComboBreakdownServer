@@ -5,6 +5,7 @@ dotenv.config();
 
 const secretKey = process.env.JWT_SECRET_KEY;
 
+
 const ensureToken = async (req, res, next) => {
   const authorizationHeader = req.headers['authorization'];
 
@@ -12,7 +13,7 @@ const ensureToken = async (req, res, next) => {
     return res.status(401).send('Authorization header missing');
   } 
   else if (authorizationHeader !== 'undefined') { 
-    
+
     const auth = authorizationHeader.split(' ');
     const authToken = auth && auth[1];
     if (authToken == null) return res.sendStatus(401);
@@ -27,5 +28,6 @@ const ensureToken = async (req, res, next) => {
     return res.status(401).send('Invalid Authorization header');
   }
 };
+
 
 export { ensureToken };
