@@ -1,16 +1,9 @@
+import test from 'ava';
 import request from 'supertest';
-import { expect } from 'chai';
 import { app } from '../app.js';
 
-describe('Test the root path', () => {
-
-  it('It should respond to the GET method', done => {
-    request(app)
-      .get('/')
-      .end((err, response) => {
-        expect(response.statusCode).to.equal(200);
-        done();
-      });
-  });
-
+test('It should respond to the GET method on root path', async t => {
+    const response = await request(app).get('/');
+    
+    t.is(response.statusCode, 200);
 });

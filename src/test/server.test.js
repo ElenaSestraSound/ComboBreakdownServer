@@ -1,25 +1,13 @@
+import test from 'ava';
 import request from 'supertest';
-import { expect } from 'chai';
 import { app } from '../app.js';
 
-describe('Test server connection', () => {
+test('It should return 404 when accessing an unknown endpoint', async t => {
+    const response = await request(app).get('/unknown');
+    t.is(response.statusCode, 404);
+});
 
-  it('It should return 404, when accessing an unknown endpoint', done => {
-    request(app)
-      .get('/unknown')
-      .end((err, response) => {
-        expect(response.statusCode).to.equal(404);
-        done();
-      });
-  });
-
-  it('It should return 200, when accessing /scrape endpoint', done => {
-    request(app)
-      .get('/db-test')
-      .end((err, response) => {
-        expect(response.statusCode).to.equal(200);
-        done();
-      });
-  });
-
+test('It should return 200 when accessing /db-test endpoint', async t => {
+    const response = await request(app).get('/db-test');
+    t.is(response.statusCode, 200);
 });

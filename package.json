@@ -8,7 +8,9 @@
   },
   "scripts": {
     "start": "node src/index.js",
-    "dev": "nodemon src/index.js"
+    "dev": "nodemon src/index.js",
+    "test": "node_modules/.bin/ava **/*.test.js --verbose",
+    "test:watch": "node_modules/.bin/ava --verbose --watch"
   },
   "keywords": [],
   "author": "",
@@ -20,7 +22,11 @@
     "prisma": "^5.1.1"
   },
   "dependencies": {
+    "@babel/plugin-transform-runtime": "^7.22.10",
+    "@babel/runtime": "^7.22.10",
     "@prisma/client": "^5.1.1",
+    "ava": "^5.3.1",
+    "babel-register": "^6.26.0",
     "bcrypt": "^5.1.1",
     "cors": "^2.8.5",
     "dotenv": "^16.3.1",
@@ -28,6 +34,12 @@
     "express-jwt": "^8.4.1",
     "jsonwebtoken": "^9.0.1",
     "morgan": "^1.10.0",
-    "puppeteer": "^21.0.3"
+    "puppeteer": "^21.0.3",
+    "supertest": "^6.3.3"
+  },
+  "ava": {
+    "require": [
+      "babel-register"
+    ]
   }
 }
