@@ -7,5 +7,10 @@
     }]
   ],
   "plugins": ["@babel/transform-runtime"],
-  "sourceType": "module"
+  "sourceType": "module",
+  "env": {
+    "test": {
+      "plugins": [ "istanbul" ]
+    }
+  }
 }

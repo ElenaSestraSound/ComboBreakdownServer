@@ -2,6 +2,7 @@
 import test from 'ava';
 import { processCharacterPage } from '../scraper/characterPage/processCharacterPage.js';
 
+/* test character page */
 
 test('Should scrape Street Fighter character data correctly', async t => {
   const url = 'https://www.streetfighter.com/6/character/ryu';
