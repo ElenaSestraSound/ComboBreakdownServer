@@ -6,8 +6,8 @@ import { ensureToken } from "./authorization/authMiddleware.js";
 const router = express.Router();
 
 /* authentication routes */
-router.get('/auth/admin', ensureToken, passwordAdmin);
-router.post('/auth/admin/login', ensureToken, loginAdmin);
+router.get('/auth/admin', passwordAdmin);
+router.post('/auth/admin/login', loginAdmin);
 
 /* scraping routes */
 router.get('/scrape/all', getAllCharacterData);

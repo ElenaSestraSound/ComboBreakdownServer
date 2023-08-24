@@ -26,12 +26,29 @@ const passwordAdmin = async (req, res, next) => {
 /* *** POST *** */
 /* Logs in the admin user */
 
+const dummy_username = "abcdef"
+const dummy_password = "123456"
+
 const loginAdmin = async (req, res, next) => {
   try {
 
     // Authenticate User
     const username = req.body.username;
-    const user = { name: username };
+    const password = req.body.password;
+
+    if(username == dummy_username && password == dummy_password){
+      res.send({
+       ok: true,
+       message: "Login successful"
+      })
+     } else {
+      res.send({
+       ok: false,
+       message: "Username or password incorrect"
+      })
+     }
+
+    const user = { username: username };
     const token = jwt.sign({ user }, secretKey);
     res.json({
       token: token
