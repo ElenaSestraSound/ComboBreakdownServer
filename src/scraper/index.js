@@ -15,10 +15,14 @@ const characterUrlNames = [
   'dhalsim', 'blanka', 'ken', 'juri', 'kimberly', 'guile', 'chunli', 'jamie', 'luke', 'ryu'
 ];
 
-const charactersUrlObject = characterUrlNames.reduce((obj, character) => {
-  obj[character] = baseUrl + character;
-  return obj;
-}, {});
+const createCharacterUrls = (namesArray, urlString) => {
+  return namesArray.reduce((obj, character) => {
+    obj[character] = urlString + character;
+    return obj;
+  }, {});
+}
+
+const charactersUrlObject = createCharacterUrls(characterUrlNames, baseUrl);
 
 ///// SCRAPE FUNCTION /////
 

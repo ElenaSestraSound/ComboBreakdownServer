@@ -1,6 +1,7 @@
 // tests.js
 import test from 'ava';
 import { processCharacterPage } from '../scraper/characterPage/processCharacterPage.js';
+import { filterKeyString } from '../scraper/skillData/characterSkills.js';
 
 /* test character page */
 
@@ -22,3 +23,18 @@ test('Should scrape Street Fighter character data correctly', async t => {
   t.deepEqual(result, expected);
 });
 
+/* test skill data */
+
+test('filterKeyString should return the correct regex match', t => {
+  const input = '[t]skill_special_move_001';
+  const result = filterKeyString(input);
+
+  t.deepEqual(result, ['[t]skill_special_move_001', 'skill_special_', 'move', '001']);
+});
+
+test('filterKeyString should return null for no match', t => {
+  const input = 'invalidString';
+  const result = filterKeyString(input);
+
+  t.is(result, null);
+});

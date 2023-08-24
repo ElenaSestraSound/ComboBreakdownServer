@@ -66,4 +66,7 @@ function transformCharacterData(data) {
   });
 }
 
-export { transformCharacterData };
+export {
+  transformCharacterData,
+  filterKeyString
+};
