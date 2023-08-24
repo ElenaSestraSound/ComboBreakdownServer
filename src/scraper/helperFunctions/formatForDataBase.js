@@ -2,12 +2,12 @@ function formatMove (data) {
 
   const formattedMove = {
     name: data.name,
-    type: data.type || 'default',
+    type: data.type || null,
     note: data.note || null,
     driveGauge: data.driveGauge || null,
     video: data.video || null,
     definition: data.definition || null,
-    classic: data.classic || 'default',
+    classic: data.classic || null,
     modern: data.modern || null,
     manual: data.manual || null,
     startup: parseInt(data.startup, 10) || null,
