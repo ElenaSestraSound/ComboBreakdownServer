@@ -18,7 +18,7 @@ const createUser = async () => {
     const userPassword = await hashPassword(txtPassword);
     
     try {
-        await prisma.superUser.create({
+        await prisma.admin.create({
             data: {
                 username: userName,
                 password: userPassword,

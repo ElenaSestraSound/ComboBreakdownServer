@@ -49,7 +49,7 @@ model Move {
   characterId           String?    @db.ObjectId
 }
 
-model SuperUser {
+model Admin {
   id       String @id @default(auto()) @map("_id") @db.ObjectId
   username String @unique
   password String
