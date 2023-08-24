@@ -51,6 +51,6 @@ model Move {
 
 model SuperUser {
   id       String @id @default(auto()) @map("_id") @db.ObjectId
-  username String
+  username String @unique
   password String
 }
