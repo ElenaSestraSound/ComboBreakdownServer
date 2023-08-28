@@ -22,9 +22,9 @@ model Character {
 model Move {
   id                    String     @id @default(auto()) @map("_id") @db.ObjectId
   name                  String
-  type                  String
+  type                  String?
   image                 String?
-  classic               String
+  classic               String?
   modern                String?
   manual                String?
   note                  String?
@@ -47,4 +47,10 @@ model Move {
   miscellaneous         String?
   Character             Character? @relation(fields: [characterId], references: [id])
   characterId           String?    @db.ObjectId
+}
+
+model Admin {
+  id       String @id @default(auto()) @map("_id") @db.ObjectId
+  username String @unique
+  password String
 }

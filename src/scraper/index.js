@@ -59,39 +59,50 @@ const getScrapeData = async () => {
   // merge data from local storage
 
   const driveGaugeProperty = driveGaugeValues;
-   const characterModernMoves = movesModern;
-   const characterSpecialSkills = transformCharacterData(rawSkillData);
+  const characterModernMoves = movesModern;
+  const characterSpecialSkills = transformCharacterData(rawSkillData);
 
   const characterArray = [...characterMap.values()];
 
+  /* helper functions to merge locally stored data */
+
+  function findCharacter(array, name) {
+    return array.find(ch => ch.name === name);
+  }
+
+  function findMove(movesArray, moveName) {
+    return movesArray.find(m => m.name === moveName);
+  }
+
+  function mergeMoves(existingCharacter, newCharacter) {
+    for (let move of newCharacter.moves) {
+      let existingMove = findMove(existingCharacter.moves, move.name);
+
+      if (!existingMove) {
+        existingCharacter.moves.push(move);
+      } else {
+        Object.assign(existingMove, move);
+      }
+    }
+  }
+
   ///// MERGE /////
+
   function mergeCharacterMoves(...dataArrays) {
     let result = [];
 
-    for (let i = 0; i < dataArrays.length; i++) {
-      let characterArray = dataArrays[i];
+    for (let characterArray of dataArrays) {
+      for (let character of characterArray) {
+        let existingCharacter = findCharacter(result, character.name);
 
-      for (let j = 0; j < characterArray.length; j++) {
-        let character = characterArray[j];
-        let existingCharacter = result.find(ch => ch.name === character.name);
         if (!existingCharacter) {
           result.push(character);
         } else {
-
-          for (let k = 0; k < character.moves.length; k++) {
-            let move = character.moves[k];  
-            let existingMove = existingCharacter.moves.find(m => m.name === move.name);
-
-            if (!existingMove) {
-                existingCharacter.moves.push(move);
-            } else {
-                Object.assign(existingMove, move);
-            }
-          }
+        mergeMoves(existingCharacter, character);
         }
       }
     }
-  return result;
+    return result;
   }
 
   const scrapedData = mergeCharacterMoves(characterArray, characterModernMoves, driveGaugeProperty, characterSpecialSkills);
